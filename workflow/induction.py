@@ -176,5 +176,5 @@ class OrganoidExperiment(dj.Manual):
     -> OrganoidCulture
     ---
     -> Experiment
-    experiment_plan: varchar(64) # mrna lysate, oct, protein lysate
+    experiment_plan: varchar(64) # ephys, tracing
     """
