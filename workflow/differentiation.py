@@ -32,7 +32,7 @@ class Passage(dj.Manual):
 
 
 @schema
-class InductionID(dj.Manual):
+class Induction(dj.Manual):
     definition = """
     induction_id: varchar(8)     # de-identified code
     ---

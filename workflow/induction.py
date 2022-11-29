@@ -43,7 +43,7 @@ class Substrate(dj.Lookup):
 @schema
 class InductionCulture(dj.Manual):
     definition = """
-    -> differentiation.InductionID
+    -> differentiation.Induction
     dish_id: int
     """
 
@@ -56,7 +56,7 @@ class InductionCultureCondition(dj.Manual):
     ---
     induction_step: enum('ipsc_replate', 'induction_start', 'media_change')
     media_change=null: bool
-    density=null: int           # units of %
+    density=null: int           # units of percentage
     discontinued=null: bool
     -> [nullable] Supplement
     -> [nullable] Media
@@ -80,12 +80,12 @@ class InductionDNA(dj.Manual):
     definition = """
     -> InductionCulture
     ---
-    gDNA: bool # Was genomic DNA collected?
+    g_dna: bool # Was genomic DNA collected?
     """
 
 
 @schema
-class ExperimentID(dj.Manual):
+class Experiment(dj.Manual):
     definition = """
     experiment_id: varchar(8) # i.e. rosette id and organoid id, e.g. AS001
     """
@@ -136,7 +136,7 @@ class RosetteExperiment(dj.Manual):
     definition = """
     -> RosetteCulture
     ---
-    -> [nullable] ExperimentID
+    -> [nullable] Experiment
     rosette_plan: varchar(64) # mrna lysate, oct, protein lysate, or matrigel embedding
     """
 
@@ -144,7 +144,7 @@ class RosetteExperiment(dj.Manual):
 @schema
 class OrganoidCulture(dj.Manual):
     definition = """ # Organoids embedded in matrigel 10cm dish for up to 5 months
-    -> differentiation.InductionID
+    -> differentiation.Induction
     matrigel_id: int
     ---
     organoid_embed_date: date
@@ -175,6 +175,6 @@ class OrganoidExperiment(dj.Manual):
     definition = """
     -> OrganoidCulture
     ---
-    -> ExperimentID
+    -> Experiment
     experiment_plan: varchar(64) # mrna lysate, oct, protein lysate
     """
