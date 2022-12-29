@@ -16,8 +16,8 @@
 import os 
 if os.path.basename(os.getcwd()) == "notebooks": os.chdir("..")
 import datajoint as dj
-from workflow import differentiation, induction
+from workflow import lineage, induction
 
-dj.Diagram(differentiation) + dj.Diagram(induction)
+dj.Diagram(lineage) + dj.Diagram(induction)
 
 
