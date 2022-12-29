@@ -19,28 +19,6 @@ class User(dj.Manual):
 
 
 @schema
-class Supplement(dj.Lookup):
-    definition = """
-    supplement: varchar(32)
-    concentration: int # units of micromolar or ng/mL
-    """
-
-
-@schema
-class Media(dj.Lookup):
-    definition = """
-    media: varchar(32)
-    """
-
-
-@schema
-class Substrate(dj.Lookup):
-    definition = """
-    substrate: varchar(32)
-    """
-
-
-@schema
 class InductionCulture(dj.Manual):
     definition = """
     -> differentiation.Induction
@@ -58,10 +36,39 @@ class InductionCultureCondition(dj.Manual):
     media_change=null: bool
     density=null: int           # units of percentage
     discontinued=null: bool
-    -> [nullable] Supplement
-    -> [nullable] Media
-    -> [nullable] Substrate
     induction_condition_note='': varchar(256)
+    """
+
+
+@schema
+class InductionCultureSupplement(dj.Manual):
+    definition = """
+    -> InductionCultureCondition
+    supplement: varchar(32)
+    ---
+    concentration: int 
+    units: enum('micromolar', 'ng/mL')
+    """
+
+
+@schema
+class InductionCultureMedia(dj.Manual):
+    definition = """
+    -> InductionCultureCondition
+    media_name: varchar(32)
+    ---
+    media_amount: int        # Percentage of the media used in the culture, 1%-100%
+    manufacturer='': varchar(32)
+    catalog_number='': varchar(32)
+    media_note='':
+    """
+
+
+@schema
+class InductionCultureSubstrate(dj.Manual):
+    definition = """
+    -> InductionCultureCondition
+    substrate: varchar(32)
     """
 
 
@@ -114,10 +121,39 @@ class RosetteCultureCondition(dj.Manual):
     rosette_condition_date: date
     ---
     rosette_relative_date: varchar(4)
-    -> [nullable] Supplement
-    -> [nullable] Media
-    -> [nullable] Substrate
     rosette_condition_note='': varchar(256)
+    """
+
+
+@schema
+class RosetteCultureSupplement(dj.Manual):
+    definition = """
+    -> RosetteCultureCondition
+    supplement: varchar(32)
+    ---
+    concentration: int 
+    units: enum('micromolar', 'ng/mL')
+    """
+
+
+@schema
+class RosetteCultureMedia(dj.Manual):
+    definition = """
+    -> RosetteCultureCondition
+    media_name: varchar(32)
+    ---
+    media_amount: int        # Percentage of the media used in the culture, 1%-100%
+    manufacturer='': varchar(32)
+    catalog_number='': varchar(32)
+    media_note='':
+    """
+
+
+@schema
+class RosetteCultureSubstrate(dj.Manual):
+    definition = """
+    -> RosetteCultureCondition
+    substrate: varchar(32)
     """
 
 
@@ -149,11 +185,14 @@ class OrganoidCulture(dj.Manual):
     ---
     organoid_embed_date: date
     """
-    class Organoid(dj.Part):
-        definition = """ # Each organoid is in a matrigel droplet, and multiple organoids are embedded in dish
-        -> master
-        -> RosetteCulture
-        """
+
+
+@schema
+class OrganoidEmbedding(dj.Manual):
+    definition = """ # Each organoid is in a matrigel droplet, and multiple organoids are embedded in dish
+    -> OrganoidCulture
+    -> RosetteCulture
+    """
 
 
 @schema
@@ -163,10 +202,39 @@ class OrganoidCultureCondition(dj.Manual):
     organoid_condition_date: date
     ---
     organoid_relative_date: varchar(4)
-    -> [nullable] Supplement
-    -> [nullable] Media
-    -> [nullable] Substrate
     organoid_condition_note='': varchar(256)
+    """
+
+
+@schema
+class OrganoidCultureSupplement(dj.Manual):
+    definition = """
+    -> OrganoidCultureCondition
+    supplement: varchar(32)
+    ---
+    concentration: int 
+    units: enum('micromolar', 'ng/mL')
+    """
+
+
+@schema
+class OrganoidCultureMedia(dj.Manual):
+    definition = """
+    -> OrganoidCultureCondition
+    media_name: varchar(32)
+    ---
+    media_amount: int        # Percentage of the media used in the culture, 1%-100%
+    manufacturer='': varchar(32)
+    catalog_number='': varchar(32)
+    media_note='':
+    """
+
+
+@schema
+class OrganoidCultureSubstrate(dj.Manual):
+    definition = """
+    -> OrganoidCultureCondition
+    substrate: varchar(32)
     """
 
 
