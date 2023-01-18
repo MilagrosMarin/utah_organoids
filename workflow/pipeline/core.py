@@ -2,6 +2,8 @@ from element_animal import subject
 from element_lab import lab
 from element_session import session_with_id as session
 
+from .induction import OrganoidCulture, OrganoidExperiment
+
 from workflow import db_prefix
 
 __all__ = ["lab", "subject", "session"]
@@ -19,11 +21,13 @@ User = lab.User
 Location = lab.Location
 Project = lab.Project
 
+subject = OrganoidCulture
 subject.activate(db_prefix + "subject", linking_module=__name__)
 
 # ------------- Activate "session" schema -------------
 
-Subject = subject.Subject
+# Subject = subject.Subject
 Experimenter = lab.User
 
+session = OrganoidExperiment
 session.activate(db_prefix + "session", linking_module=__name__)
