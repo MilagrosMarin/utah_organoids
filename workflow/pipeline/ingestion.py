@@ -89,7 +89,6 @@ class EphysIngestion(dj.Imported):
 
         # Get used electrodes for the session
         used_electrodes = [''.join(channel.split("-")[1:]) for channel in data["recordings"] if channel.startswith("amp")]
-        [e for e in used_electrodes ]
 
         used_electrodes = [int(e[1:]) if e.startswith("B") else int(e[1:]) + 16 for e in used_electrodes]
 
