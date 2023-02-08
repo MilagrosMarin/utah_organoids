@@ -18,8 +18,7 @@ def get_processed_root_data_dir() -> Path:
 
 
 def get_session_dir(session_key: dict) -> Path:
-    return Path(get_ephys_root_data_dir() / (induction.OrganoidExperiment & session_key).fetch1("experiment_dir"))
-
-    
-    
-    
+    return Path(
+        get_ephys_root_data_dir()
+        / (induction.OrganoidExperiment & session_key).fetch1("experiment_dir")
+    )

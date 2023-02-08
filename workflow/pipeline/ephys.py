@@ -62,5 +62,3 @@ ephys.AcquisitionSoftware.insert1(
     {"acq_software": "Intan"},
     skip_duplicates=True,
 )
-
-

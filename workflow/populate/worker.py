@@ -18,9 +18,7 @@ def auto_generate_probe_insertions():
         session.Session & ephys_support.PreProbeInsertion - ephys.ProbeInsertion
     ).fetch("KEY"):
         try:
-            logger.debug(
-                f"Making {skey} -> {ephys.ProbeInsertion.full_table_name}"
-            )
+            logger.debug(f"Making {skey} -> {ephys.ProbeInsertion.full_table_name}")
             ephys.ProbeInsertion.auto_generate_entries(skey)
             logger.debug(
                 f"Success making {skey} -> {ephys.ProbeInsertion.full_table_name}"
