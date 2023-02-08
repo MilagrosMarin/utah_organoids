@@ -7,7 +7,6 @@ from workflow import db_prefix
 from workflow.pipeline import reference
 
 
-
 __all__ = ["ephys", "ephys_report", "probe"]
 
 
