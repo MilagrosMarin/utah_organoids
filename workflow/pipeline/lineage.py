@@ -22,6 +22,6 @@ class Induction(dj.Manual):
 @schema
 class InductionSequence(dj.Manual):
     definition = """
-    induction_id: varchar(8)
+    -> Induction
     sequence: varchar(8)
     """
