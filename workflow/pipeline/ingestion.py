@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
-from typing import Any, Iterator
 
 import datajoint as dj
 import numpy as np
-from element_interface import intan_loader as intan
-from element_interface.utils import find_full_path
+from element_interface.intanloader import load_file
 
 from workflow import db_prefix
 from workflow.pipeline import ephys, induction, probe
-from workflow.utils.paths import get_ephys_root_data_dir, get_session_dir
+from workflow.utils.helpers import downsample_1d_arr, get_probe_info
+from workflow.utils.paths import get_session_dir
 
 logger = dj.logger
 schema = dj.schema(db_prefix + "ingestion")
@@ -25,18 +24,6 @@ class EphysIngestion(dj.Imported):
     def make(self, key):
         # Fetch probe meta information from the session directory
         probe_info = get_probe_info(key)
-
-        # Populate ephys.ProbeInsertion
-        # Fill in dummy probe config
-        insertion_number = 0
-        ephys.ProbeInsertion.insert1(
-            {
-                **key,
-                "insertion_number": insertion_number,
-                "probe": probe_info["serial_number"],
-            },
-            skip_duplicates=True,
-        )
 
         # Populate the probe schema
         # Fill in dummy parameters including probe config
@@ -57,61 +44,70 @@ class EphysIngestion(dj.Imported):
             skip_duplicates=True,
         )
 
+        # Populate ephys.ProbeInsertion
+        # Fill in dummy probe config
+        insertion_number = 0
+        ephys.ProbeInsertion.insert1(
+            {
+                **key,
+                "insertion_number": insertion_number,
+                "probe": probe_info["serial_number"],
+            },
+            skip_duplicates=True,
+        )
+
         # Get the session data path
         session_dir = get_session_dir(key)
-        data_dirs = sorted(list(session_dir.glob("[!probe]*")))
+        data_files = sorted(list(session_dir.glob("[!probe]*")))
 
         # Load data
         timestamp_concat = lfp_mean_concat = lfp_amp_concat = np.array(
             [], dtype=np.float64
         )  # initialize
 
-        ds_factor = 10  # downsampling factor
-        
-        for dir_ in data_dirs:
-            data = intan.load_rhs(dir_)
+        DS_FACTOR = 10  # downsampling factor
+        econfig = {}
 
-            if "base" in str(dir_):  # Get meta information from the baseline session
-                lfp_channels = [ch for ch in data["recordings"] if ch.startswith("amp")]
-                lfp_sampling_rate = data["header"]["sample_rate"] / ds_factor
+        for file in data_files:
+            data = load_file(file)
 
-                # Get used channels for the session
-                used_channels = [
-                    "".join(channel.split("-")[1:])
-                    for channel in data["recordings"]
-                    if channel.startswith("amp")
+            if not econfig:
+                lfp_sampling_rate = data["header"]["sample_rate"] / DS_FACTOR
+
+                lfp_channels = [
+                    ch["native_channel_name"] for ch in data["amplifier_channels"]
                 ]
-
-                used_channels = [
-                    int(channel[1:])
-                    if channel.startswith("B")
-                    else int(channel[1:]) + 16
-                    for channel in used_channels
-                ]  # this had to be hard-coded for now.
 
                 # Populate probe.ElectrodeConfig and probe.ElectrodeConfig.Electrode
                 econfig = ephys.generate_electrode_config(
                     probe_type=probe_info["type"],
                     electrode_keys=[
-                        {"probe_type": probe_info["type"], "electrode": c}
-                        for c in used_channels
+                        {
+                            "probe_type": probe_info["type"],
+                            "electrode": probe_info["channel_to_electrode_map"][c],
+                        }
+                        for c in lfp_channels
                     ],
                 )
 
             # Concatenate timestamps
-            start_time = "".join(dir_.stem.split("_")[-2:])
+            start_time = "".join(file.stem.split("_")[-2:])
             start_time = datetime.strptime(start_time, "%y%m%d%H%M%S")
-            timestamps = start_time + downsample_arr(data["timestamps"], ds_factor=ds_factor) * timedelta(seconds=1)
+            timestamps = start_time + downsample_1d_arr(
+                data["t"] - data["t"][0], ds_factor=DS_FACTOR
+            ) * timedelta(seconds=1)
             timestamp_concat = np.concatenate((timestamp_concat, timestamps), axis=0)
 
             # Concatenate LFP traces
             lfp_amp = np.array(
                 [
-                    downsample_arr(data["recordings"][d], ds_factor=ds_factor) 
-                    for d in data["recordings"]
-                    if d.startswith("amp")
+                    downsample_1d_arr(d, ds_factor=DS_FACTOR)
+                    for d in data["amplifier_data"]
                 ]
             )
+
+            del data
+
             lfp_mean = np.mean(lfp_amp, axis=0)
             lfp_mean_concat = np.concatenate((lfp_mean_concat, lfp_mean), axis=0)
             if lfp_amp_concat.size == 0:
@@ -132,7 +128,7 @@ class EphysIngestion(dj.Imported):
                 ),
                 "recording_duration": (
                     timestamp_concat[-1] - timestamp_concat[0]
-                ).total_seconds(),
+                ).total_seconds(),  # includes potential gaps
             },
             allow_direct_insert=True,
         )
@@ -149,88 +145,20 @@ class EphysIngestion(dj.Imported):
             allow_direct_insert=True,
         )
 
-        # Populate ephys.LFP.Electrode
         electrode_query = (
-            probe.ProbeType.Electrode
-            * probe.ElectrodeConfig.Electrode
-            * ephys.EphysRecording
-            & key
-        )
+            probe.ElectrodeConfig.Electrode * ephys.EphysRecording & key
+        ).fetch("electrode_config_hash", "probe_type", "electrode", as_dict=True)
 
-        lfp_channel_ind = [
-            electrode for electrode in data["recordings"] if electrode.startswith("amp")
-        ]
+        probe_electrodes = {q["electrode"]: q for q in electrode_query}
 
-        for recorded_site in lfp_channels:
+        # Populate ephys.LFP.Electrode
+        for ch, lfp_trace in zip(lfp_channels, lfp_amp):
             ephys.LFP.Electrode.insert1(
-                {**key, "lfp": downsample_arr(data["recordings"][recorded_site], ds_factor=ds_factor)},
+                {
+                    **key,
+                    **probe_electrodes[probe_info["channel_to_electrode_map"][ch]],
+                    "insertion_number": insertion_number,
+                    "lfp": lfp_trace,
+                },
                 allow_direct_insert=True,
             )
-
-
-def get_probe_info(session_key: dict[str, Any]) -> dict[str, Any]:
-    """Find probe.yaml in a session folder
-
-    Args:
-        session_key (dict[str, Any]): session key
-
-    Returns:
-        dict[str, Any]: probe meta information
-    """
-    import yaml
-
-    experiment_dir = find_full_path(
-        get_ephys_root_data_dir(), get_session_dir(session_key)
-    )
-
-    probe_meta_file = next(experiment_dir.glob("probe*"))
-
-    with open(probe_meta_file, "r") as f:
-        return yaml.safe_load(f)
-
-
-def array_generator(arr: np.array, chunk_size: int = 10) -> Iterator[np.array]:
-    """Generates an array at a specified chunk
-
-    Args:
-        arr (np.array): 1d numpy array
-        chunk_size (int, optional): Size of the output array. Defaults to 10.
-
-    Yields:
-        Iterator[np.array]: generator object
-    """
-    start_ind = end_ind = 0
-    while end_ind < arr.shape[0]:
-        end_ind += chunk_size
-        new_arr = arr[start_ind:end_ind]
-
-        yield new_arr
-        start_ind += chunk_size
-
-
-def downsample_arr(
-    arr: np.array, ds_factor: int = 10, selected_ind: int = 0
-) -> np.array:
-    """Function for downsampling an array
-
-    Args:
-        arr (np.array): 1d numpy array
-        ds_factor (int, optional): Downsampling factor. Defaults to 10. If 10, 20kHz will be downsampled to 2kHz.
-        selected_ind (int, optional): Select which index to keep. Defaults to 0 (first index).
-
-    Returns:
-        np.array: Final downsampled array.
-    """
-    if arr.shape[0] < ds_factor:
-        raise NotImplementedError("Array is smaller than the downsampling factor")
-
-    assert selected_ind < ds_factor, "selected_ind should be < ds_factor"
-
-    downsampled_arr = []
-
-    for new_arr in array_generator(arr, chunk_size=ds_factor):
-        if new_arr.shape[0] <= selected_ind:
-            selected_ind = -1
-        downsampled_arr.append(new_arr[selected_ind])
-
-    return np.array(downsampled_arr)
