@@ -1,4 +1,5 @@
 from typing import Any
+import datajoint as dj
 
 from element_array_ephys import ephys_no_curation as ephys
 from element_array_ephys import ephys_report, probe
@@ -12,15 +13,50 @@ from .induction import OrganoidExperiment
 __all__ = ["ephys", "ephys_report", "probe"]
 
 
-# ------------- Activate "ephys" schema -------------
+@ephys.schema
+class RawEphys(dj.Imported):
+    definition="""
+    -> Subject
+    probe_id:       int
+    start_time:     datetime # date and time of file creation
+    ---
+    file_name :     varchar(32)  # name of the file
+    file :          filepath@store  
+    end_time :      datetime
+    sampling_rate:  float # (Hz)
+    header:         longblob  # meta information about the file.
+    """
+    
+    class Channel(dj.Part):
+        definition="""
+        -> master
+        channel_id : varchar(16)
+        ---
+        lfp:         blob@store  # LFP recording at this electrode in microvolts.
+        """
 
+    def make(self, key): ...
+        
+        
+@ephys.schema
+class EphysSession(dj.Manual):
+    # activate the ephys element
+    definition="""
+    -> OrganoidExperiment
+    start_time : datetime
+    end_time : datetime
+    """
+    
+    
+Session = EphysSession
 SkullReference = reference.SkullReference
-Session = OrganoidExperiment
+
 
 if not ephys.schema.is_activated():
     ephys.activate(db_prefix + "ephys", db_prefix + "probe", linking_module=__name__)
 
 
+# ------------- Activate "ephys" schema -------------
 # Add a default kilosort2 paramset
 
 # default_params = {
@@ -55,8 +91,6 @@ if not ephys.schema.is_activated():
 #     paramset_idx=0,
 # )
 
-
-# Add meta information
 # Populate ephys.AcquisitionSoftware
 ephys.AcquisitionSoftware.insert1(
     {"acq_software": "Intan"},
