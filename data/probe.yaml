@@ -1,7 +1,5 @@
-# Stores meta information about all the probe and its configuration settings used for the project
-
-1: # unique probe id
-  serial_number: 111
+1: # probe electrode configuration
+  serial_number: 111 # unique probe id
   maker: NeuroNexus
   comment: "dummy probe"
 
@@ -33,8 +31,8 @@
     "D-014": 14
     "D-015": 15
 
-2: # unique probe id
-  serial_number: 123
+2: # probe electrode configuration
+  serial_number: 123 # unique probe id
   maker: NeuroNexus
   comment: "test"
 
