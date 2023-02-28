@@ -45,26 +45,14 @@ def ingest_probe() -> None:
             ),
             skip_duplicates=True,
         )
-
-        probe.ElectrodeConfig.insert1(
-            {
-                "probe_config_id": probe_config_id,
-                "probe_type": probe_config["config"]["probe_type"],
-                "channel_to_electrode_map": probe_config["channel_to_electrode_map"],
-            }
-        )
-
-        probe.ElectrodeConfig.Electrode.insert(
-            [
-                {
-                    "probe_config_id": probe_config_id,
-                    "probe_type": probe_config["config"]["probe_type"],
-                    "electrode": e,
-                    "channel_id": ch,
-                }
-                for ch, e in probe_config["channel_to_electrode_map"].items()
-            ]
-        )
+        
+        # Insert into probe.ElectrodeConfig & probe.ElectrodeConfig.Electrode
+        probe_type = probe_config["config"]["probe_type"]
+        electrode_keys = [
+                        {"probe_type": probe_type, "electrode": e}
+                        for e in probe_config["channel_to_electrode_map"].values()
+                    ]
+        probe.generate_electrode_config(probe_type, electrode_keys, electrode_config_name=probe_config_id)
 
 
 def array_generator(arr: np.array, chunk_size: int = 10):
