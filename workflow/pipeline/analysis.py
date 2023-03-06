@@ -92,8 +92,10 @@ class LFPSpectrogram(dj.Computed):
         self.ChannelSpectrogram.insert1(
             {**key, **lfp_key, "spectrogram": Sxx, "frequency": frequency, "time": time}
         )
-        k, l, u = SpectralBand.fetch("KEY", "lower_freq", "upper_freq")
-        for power_key, fl, fh in zip(k, l, u):
+        keys, lower_freq, upper_freq = SpectralBand.fetch(
+            "KEY", "lower_freq", "upper_freq"
+        )
+        for power_key, fl, fh in zip(keys, lower_freq, upper_freq):
             freq_mask = np.logical_and(frequency >= fl, frequency < fh)
             power = Sxx[freq_mask, :].mean(axis=0)  # mean across freq domain
             self.Power.insert1(
