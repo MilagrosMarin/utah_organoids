@@ -71,7 +71,7 @@ class LFPSpectrogram(dj.Computed):
             3. lowpass filter at 1000Hz.
         """
         lfp_sampling_rate, window_size, overlap_size = (
-            ephys.LFP.Trace * ephys.LFP * SpectrogramParameters & key
+            ephys.LFP * SpectrogramParameters & key
         ).fetch1(
             "lfp_sampling_rate",
             "window_size",
