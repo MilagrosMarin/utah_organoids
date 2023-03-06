@@ -12,7 +12,7 @@ from workflow.utils.paths import (
     get_session_dir,
 )
 
-__all__ = ["ephys", "ephys_report", "probe", "trial", "event"]
+__all__ = ["ephys", "ephys_report", "probe", "trial", "event", "Session"]
 
 # Activate "event" and "trial" schema ---------------------------------
 Session = OrganoidExperiment
