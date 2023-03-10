@@ -71,21 +71,12 @@ class LFPSpectrogram(dj.Computed):
             3. lowpass filter at 1000Hz.
         """
         lfp_sampling_rate, window_size, overlap_size = (
-<<<<<<< HEAD
-             ephys.LFP * SpectrogramParameters & key
-         ).fetch1(
-             "lfp_sampling_rate",
-             "window_size",
-             "overlap_size",
-         )
-=======
             ephys.LFP * SpectrogramParameters & key
         ).fetch1(
             "lfp_sampling_rate",
             "window_size",
             "overlap_size",
         )
->>>>>>> 1472a4fbc509118df3314c71eedd46d52ea8251f
 
         self.insert1(key)
 
@@ -109,20 +100,11 @@ class LFPSpectrogram(dj.Computed):
             power = Sxx[freq_mask, :].mean(axis=0)  # mean across freq domain
             self.Power.insert1(
                 dict(
-<<<<<<< HEAD
-                    **power_key,
-                    **key,
-=======
                     power_key,
                     lfp_key[0],
->>>>>>> 1472a4fbc509118df3314c71eedd46d52ea8251f
                     power=power,
                     mean_power=power.mean(),
                     std_power=power.std(),
                 ),
                 ignore_extra_fields=True,
-<<<<<<< HEAD
             )
-=======
-            )
->>>>>>> 1472a4fbc509118df3314c71eedd46d52ea8251f
