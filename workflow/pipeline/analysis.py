@@ -53,7 +53,7 @@ class LFPSpectrogram(dj.Computed):
         frequency: longblob   # Fourier frequencies
         """
 
-    class Power(dj.Part):
+    class ChannelPower(dj.Part):
         definition = """
         -> master
         -> SpectralBand
