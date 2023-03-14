@@ -98,7 +98,7 @@ class LFPSpectrogram(dj.Computed):
         for power_key, fl, fh in zip(keys, lower_freq, upper_freq):
             freq_mask = np.logical_and(frequency >= fl, frequency < fh)
             power = Sxx[freq_mask, :].mean(axis=0)  # mean across freq domain
-            self.Power.insert1(
+            self.ChannelPower.insert1(
                 dict(
                     power_key,
                     lfp_key[0],
