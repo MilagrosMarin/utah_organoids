@@ -22,7 +22,7 @@ def run(**kwargs):
         worker.run()
     except Exception:
         logger.exception(
-            "Worker '{}' encountered an exception:".format(kwargs["worker_name"])
+            f"Worker '{kwargs["worker_name"]}' encountered an exception."
         )
 
 
