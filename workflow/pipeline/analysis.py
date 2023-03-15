@@ -65,12 +65,14 @@ class LFPSpectrogram(dj.Computed):
 
     def make(self, key):
         self.insert1(key)
-        
-        window_size, overlap_size = (SpectrogramParameters & key).fetch1("window_size", "overlap_size")
-        
+
+        window_size, overlap_size = (SpectrogramParameters & key).fetch1(
+            "window_size", "overlap_size"
+        )
+
         lfp_sampling_rate = (ephys.LFP & key).fetch1("lfp_sampling_rate")
 
-        lfp_key, lfp = (ephys.LFP.Trace & key).fetch1("KEY", "lfp")
+        lfp = (ephys.LFP.Trace & key).fetch1("lfp")
         frequency, time, Sxx = signal.spectrogram(
             lfp,
             fs=int(lfp_sampling_rate),
@@ -90,8 +92,8 @@ class LFPSpectrogram(dj.Computed):
             power = Sxx[freq_mask, :].mean(axis=0)  # mean across freq domain
             self.ChannelPower.insert1(
                 dict(
-                    power_key,
-                    key,
+                    **power_key,
+                    **key,
                     power=power,
                     mean_power=power.mean(),
                     std_power=power.std(),
