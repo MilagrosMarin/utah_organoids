@@ -3,7 +3,29 @@ DataJoint workflow for the Organoids project at the University of Utah
 
 ## Initial configuration instructions
 
-2. Clone this repo by running:
-    `git clone https://github.com/dj-sciops/utah_organoids.git`
-3. The upload script `initiate_session.py` is in the `scripts` directory. Copy it
-into your working directory and follow the instructions in it.
+1. Clone `utah_organoids` repository
+    ```bash
+    git clone https://github.com/dj-sciops/utah_organoids.git
+    ```
+1. Install [conda](https://docs.conda.io/en/latest/miniconda.html)
+1. Create conda environment
+    ```bash
+    conda create --name djutah python=3.8
+    ```
+1. Activate conda environment
+    ```bash
+    conda activate djutah
+    ```
+1. Within `utah_organoids` directory install the package
+    ```bash
+    pip install -e .
+    ```
+1. Configure `config.yaml` file
+  1. Run `djsciops config` to locate `config.yaml` file
+  2. Update the following values
+      1. `account_id`
+      4. `client_id`
+      5. `issuer`
+      6. `bucket`
+      7. `role`
+      8. `local_outbox`
