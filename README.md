@@ -21,11 +21,11 @@ DataJoint workflow for the Organoids project at the University of Utah
     pip install -e .
     ```
 1. Configure `config.yaml` file
-  1. Run `djsciops config` to locate `config.yaml` file
-  2. Update the following values
-      1. `account_id`
-      4. `client_id`
-      5. `issuer`
-      6. `bucket`
-      7. `role`
-      8. `local_outbox`
+    1. Run `djsciops config` to locate `config.yaml` file
+    2. Update the following values
+        1. `account_id`
+        4. `client_id`
+        5. `issuer`
+        6. `bucket`
+        7. `role`
+        8. `local_outbox`
