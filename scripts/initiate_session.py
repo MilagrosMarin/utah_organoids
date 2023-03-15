@@ -3,7 +3,14 @@ import djsciops.axon as dj_axon
 import djsciops.settings as dj_settings
 import djsciops.authentication as dj_auth
 
-LOCAL_OUTBOX = pathlib.Path(R"/Users/tolgadincer/DJRepos/utah_organoids/inbox")
+"""_summary_
+1. Install djsciops package: “pip install djsciops”
+2. Run “djsciops config” on the terminal to get the path of config.yaml.
+3. Make sure account_id, client_id, issuer, bucket, and role have the correct values.
+4. Make sure there is a local_outbox in the config.yaml.
+"""
+
+LOCAL_OUTBOX = dj_settings.get_config("local_outbox")
 PROJECT_NAME = "utah_organoids"
 
 config = dj_settings.get_config()
