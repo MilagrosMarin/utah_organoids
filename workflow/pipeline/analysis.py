@@ -64,15 +64,11 @@ class LFPSpectrogram(dj.Computed):
         """
 
     def make(self, key):
-        lfp_sampling_rate, window_size, overlap_size = (
-            ephys.LFP * SpectrogramParameters & key
-        ).fetch1(
-            "lfp_sampling_rate",
-            "window_size",
-            "overlap_size",
-        )
-
         self.insert1(key)
+        
+        window_size, overlap_size = (SpectrogramParameters & key).fetch1("window_size", "overlap_size")
+        
+        lfp_sampling_rate = (ephys.LFP & key).fetch1("lfp_sampling_rate")
 
         lfp_key, lfp = (ephys.LFP.Trace & key).fetch1("KEY", "lfp")
         frequency, time, Sxx = signal.spectrogram(
