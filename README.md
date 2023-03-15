@@ -20,6 +20,17 @@ DataJoint workflow for the Organoids project at the University of Utah
     ```bash
     pip install -e .
     ```
+1. Configure database connection
+    ```python
+    import datajoint as dj
+    import getpass
+    dj.config["custom"]={}
+    dj.config["custom"]["database.prefix"]="utah_organoids"
+    dj.config["database.host"]="rds.datajoint.io"
+    dj.config["database.user"]="arifneuro"
+    dj.config["database.password"]=getpass.getpass()
+    dj.config.save_global()
+    ```
 1. Configure `config.yaml` file
     1. Run `djsciops config` to locate `config.yaml` file
     2. Update the following values
