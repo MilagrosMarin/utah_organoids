@@ -12,3 +12,4 @@ intanrhsreader @ git+https://github.com/datajoint/intanrhsreader.git
 plotly
 graphviz
 djsciops
+ipython
