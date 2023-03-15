@@ -91,7 +91,7 @@ class LFPSpectrogram(dj.Computed):
             self.ChannelPower.insert1(
                 dict(
                     power_key,
-                    lfp_key[0],
+                    key,
                     power=power,
                     mean_power=power.mean(),
                     std_power=power.std(),
