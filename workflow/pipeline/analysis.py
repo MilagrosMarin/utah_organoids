@@ -97,6 +97,5 @@ class LFPSpectrogram(dj.Computed):
                     power=power,
                     mean_power=power.mean(),
                     std_power=power.std(),
-                ),
-                ignore_extra_fields=True,
+                )
             )
