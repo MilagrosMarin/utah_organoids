@@ -80,7 +80,7 @@ class LFPSpectrogram(dj.Computed):
         )
 
         self.ChannelSpectrogram.insert1(
-            {**key, **lfp_key, "spectrogram": Sxx, "frequency": frequency, "time": time}
+            {**key, "spectrogram": Sxx, "frequency": frequency, "time": time}
         )
         keys, lower_freq, upper_freq = SpectralBand.fetch(
             "KEY", "lower_freq", "upper_freq"
