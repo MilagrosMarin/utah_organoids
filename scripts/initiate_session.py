@@ -10,7 +10,7 @@ import djsciops.authentication as dj_auth
 4. Make sure there is a local_outbox in the config.yaml.
 """
 
-LOCAL_OUTBOX = dj_settings.get_config("local_outbox")
+LOCAL_OUTBOX = pathlib.Path(dj_settings.get_config()["local_outbox"])
 PROJECT_NAME = "utah_organoids"
 
 config = dj_settings.get_config()
