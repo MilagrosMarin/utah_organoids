@@ -23,7 +23,7 @@ def upload_session_data(session_dir_relpath):
 
     Example:
         If the data is located at "/Users/tolgadincer/DJRepos/utah_organoids/inbox/O6/.."
-        >>> upload_session_data(O6)
+        >>> upload_session_data('O6')
     """
     session_dir_relpath = pathlib.Path(session_dir_relpath).as_posix()
 
