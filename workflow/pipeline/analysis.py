@@ -35,7 +35,7 @@ class SpectrogramParameters(dj.Lookup):
     overlap_size=0:  float    # Time in seconds
     description="":  varchar(64)
     """
-    contents = [(0, 2.0, 0.0, "Default 2s time segments without overlap.")]
+    contents = [(0, 0.5, 0.0, "Default 0.5s time segments without overlap.")]
 
 
 @schema
