@@ -4,9 +4,9 @@ schema = dj.schema()
 if "custom" not in dj.config:
     dj.config["custom"] = {}
 
-db_prefix = dj.config["custom"].get("database.prefix", "")
+DB_PREFIX = dj.config["custom"].get("database.prefix", "")
 
-schema = dj.schema(db_prefix + "lineage")
+schema = dj.schema(DB_PREFIX + "lineage")
 
 
 @schema
