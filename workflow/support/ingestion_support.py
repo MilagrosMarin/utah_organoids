@@ -75,6 +75,7 @@ class FileProcessing(dj.Imported):
                     previous = current
                 session_entries.append((start, previous))
                 log_message += f"Creating {len(session_entries)} ephys session(s) for {subject_key}: {session_entries}" + "\n"
+                
                 ephys.EphysSession.insert({
                             **subject_key,
                             **sess_config,
