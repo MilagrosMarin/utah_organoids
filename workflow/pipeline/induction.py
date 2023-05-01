@@ -67,7 +67,7 @@ class InductionCultureMedia(dj.Manual):
 class InductionCultureSubstrate(dj.Manual):
     definition = """
     -> InductionCultureCondition
-    substrate: varchar(32)
+    substrate: varchar(32) # matrigel
     """
 
 
@@ -98,7 +98,7 @@ class RosetteCulture(dj.Manual):
     well_id: varchar(4)
     ---
     -> User
-    single_rosette_date: date
+    single_rosette_date: date   # date for picking rosette
     induction_date: date
     amplification_date: date    # egf fgf treatment
 
