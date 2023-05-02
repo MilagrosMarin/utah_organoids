@@ -21,7 +21,7 @@ SciViz: # top level tab
               type: markdown
               text: |
                 # Welcome to the data viewer for the Utah Organoids data pipeline
-                As of April 11, 2023, this pipeline and data viewer are in the testing phase.
+                As of May 1, 2023, this pipeline and data viewer are in the testing phase.
     User:
       route: /userviewer
       grids:
@@ -464,8 +464,8 @@ SciViz: # top level tab
                 - utah_organoids_induction.RosetteCulture
               map:
                 - type: table
-                  input: Induction Culture
-                  destination: utah_organoids_induction.InductionCulture
+                  input: Post Induction Culture
+                  destination: utah_organoids_induction.PostInductionCulture
                 - type: table
                   input: User
                   destination: utah_organoids_induction.User
