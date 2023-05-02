@@ -1,4 +1,4 @@
-version: "v0.0.0"
+version: "v0.1.0"
 LabBook: null
 SciViz: # top level tab
   auth:
@@ -277,6 +277,9 @@ SciViz: # top level tab
                 - type: table
                   input: Induction Culture
                   destination: utah_organoids_induction.InductionCulture
+              booleans:
+                - media_change
+                - discontinued
             Induction Culture Supplement:
               route: /inductionculturesupplementform
               x: 0
@@ -342,7 +345,9 @@ SciViz: # top level tab
                 - type: table
                   input: Induction Culture
                   destination: utah_organoids_induction.InductionCulture
-    Rosette:
+              booleans:
+                - genomic_dna 
+    Isolated Rosette:
       route: /rosetteviewer
       grids:
         grid5:
@@ -440,7 +445,7 @@ SciViz: # top level tab
                 def dj_query(utah_organoids_induction):
                     table = utah_organoids_induction.RosetteCultureImage
                     return dict(query=(table), fetch_args=[])
-    Rosette Form:
+    Isolated Rosette Form:
       route: /rosetteform
       grids:
         grid5:
