@@ -147,7 +147,7 @@ class PostInductionCultureSubstrate(dj.Manual):
 @schema
 class RosetteCulture(dj.Manual):
     definition = """
-    -> InductionCulture
+    -> PostInductionCulture
     plate_id: varchar(4)
     well_id: varchar(4)
     ---
