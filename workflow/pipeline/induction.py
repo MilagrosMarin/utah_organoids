@@ -171,7 +171,7 @@ class RosetteCulture(dj.Manual):
     induction_date: date
     amplification_date: date    # egf fgf treatment
 
-    unique index (induction_plate_id, post_induction_plate_id, rosette_plate_id)
+    unique index (induction_id, induction_plate_id, post_induction_plate_id, rosette_plate_id)
     """
 
 
