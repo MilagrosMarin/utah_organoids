@@ -43,7 +43,7 @@ class InductionCultureCondition(dj.Manual):
 class InductionCultureSupplement(dj.Manual):
     definition = """
     -> InductionCultureCondition
-    supplement: varchar(32)
+    supplement: enum('Dorsomorphin', 'SB431542')
     ---
     concentration: int 
     units: enum('micromolar', 'ng/mL')
@@ -104,7 +104,7 @@ class PostInductionCultureCondition(dj.Manual):
     -> PostInductionCulture
     post_induction_condition_date: date
     ---
-    post_induction_step: enum('ipsc_replate', 'induction_start', 'media_change')
+    post_induction_step: enum('ipsc_replate', 'post_induction_start', 'media_change')
     media_change=null: bool
     density=null: int               # units of percentage
     discontinued=null: bool
@@ -116,7 +116,7 @@ class PostInductionCultureCondition(dj.Manual):
 class PostInductionCultureSupplement(dj.Manual):
     definition = """
     -> PostInductionCultureCondition
-    supplement: varchar(32)
+    supplement: enum('EGF+FGF', 'EGF', 'FGF')
     ---
     concentration: int 
     units: enum('micromolar', 'ng/mL')
