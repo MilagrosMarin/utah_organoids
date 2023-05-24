@@ -24,5 +24,5 @@ class Lineage(dj.Manual):
 class LineageSequence(dj.Manual):
     definition = """
     -> Lineage
-    sequence: varchar(8)
+    sequence: varchar(32)
     """

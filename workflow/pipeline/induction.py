@@ -19,9 +19,17 @@ class User(dj.Manual):
 
 @schema
 class InductionCulture(dj.Manual):
-    definition = """
+    definition = """ # Plate contains 6 wells
     -> lineage.Lineage
-    dish_id: int
+    induction_plate_id: varchar(4)
+    """
+
+
+@schema
+class InductionCultureWell(dj.Manual):
+    definition = """ # Plate contains 6 wells
+    -> InductionCulture
+    induction_well_id: int
     """
 
 
@@ -43,7 +51,7 @@ class InductionCultureCondition(dj.Manual):
 class InductionCultureSupplement(dj.Manual):
     definition = """
     -> InductionCultureCondition
-    supplement: varchar(32)
+    supplement: enum('Dorsomorphin', 'SB431542')
     ---
     concentration: int 
     units: enum('micromolar', 'ng/mL')
@@ -92,9 +100,17 @@ class InductionCultureDNA(dj.Manual):
 
 @schema
 class PostInductionCulture(dj.Manual):
-    definition = """
+    definition = """ # Plate contains 6 wells
     -> InductionCulture
-    well_id: int
+    post_induction_plate_id: varchar(4)
+    """
+
+
+@schema
+class PostInductionCultureWell(dj.Manual):
+    definition = """ # Plate contains 6 wells
+    -> PostInductionCulture
+    post_induction_well_id: int
     """
 
 
@@ -104,7 +120,7 @@ class PostInductionCultureCondition(dj.Manual):
     -> PostInductionCulture
     post_induction_condition_date: date
     ---
-    post_induction_step: enum('ipsc_replate', 'induction_start', 'media_change')
+    post_induction_step: enum('ipsc_replate', 'post_induction_start', 'media_change')
     media_change=null: bool
     density=null: int               # units of percentage
     discontinued=null: bool
@@ -116,7 +132,7 @@ class PostInductionCultureCondition(dj.Manual):
 class PostInductionCultureSupplement(dj.Manual):
     definition = """
     -> PostInductionCultureCondition
-    supplement: varchar(32)
+    supplement: enum('EGF+FGF', 'EGF', 'FGF')
     ---
     concentration: int 
     units: enum('micromolar', 'ng/mL')
@@ -146,17 +162,24 @@ class PostInductionCultureSubstrate(dj.Manual):
 
 @schema
 class RosetteCulture(dj.Manual):
-    definition = """
+    definition = """ Plate contains 96 wells (12 columns, 8 rows)
     -> PostInductionCulture
-    plate_id: varchar(4)
-    well_id: varchar(4)
+    rosette_plate_id: varchar(4)
     ---
     -> User
     single_rosette_date: date   # date for picking rosette
     induction_date: date
     amplification_date: date    # egf fgf treatment
 
-    unique index (induction_id, dish_id, plate_id, well_id)
+    unique index (induction_id, induction_plate_id, post_induction_plate_id, rosette_plate_id)
+    """
+
+
+@schema
+class RosetteCultureWell(dj.Manual):
+    definition = """ Plate contains 96 wells (12 columns, 8 rows)
+    -> RosetteCulture
+    rosette_well_id: varchar(4)
     """
 
 

@@ -153,11 +153,26 @@ SciViz: # top level tab
                 def dj_query(utah_organoids_induction):
                     table = utah_organoids_induction.InductionCulture
                     return dict(query=(table), fetch_args=[])
+            Induction Culture Well:
+              route: /inductionculturewellviewer
+              link: /inductionculturewelldetails
+              x: 0
+              y: 1
+              height: 1
+              width: 1
+              type: antd-table
+              restriction: >
+                def restriction(**kwargs):
+                    return dict(**kwargs)
+              dj_query: >
+                def dj_query(utah_organoids_induction):
+                    table = utah_organoids_induction.InductionCultureWell
+                    return dict(query=(table), fetch_args=[])
             Induction Culture Condition:
               route: /inductioncultureconditionviewer
               link: /inductioncultureconditiondetails
               x: 0
-              y: 1
+              y: 2
               height: 1
               width: 1
               type: antd-table
@@ -172,7 +187,7 @@ SciViz: # top level tab
               route: /inductionculturesupplementviewer
               link: /inductionculturesupplementdetails
               x: 0
-              y: 2
+              y: 3
               height: 1
               width: 1
               type: antd-table
@@ -187,7 +202,7 @@ SciViz: # top level tab
               route: /inductionculturemediaviewer
               link: /inductionculturemediadetails
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: antd-table
@@ -202,7 +217,7 @@ SciViz: # top level tab
               route: /inductionculturesubstrateviewer
               link: /inductionculturesubstratedetails
               x: 0
-              y: 4
+              y: 5
               height: 1
               width: 1
               type: antd-table
@@ -217,7 +232,7 @@ SciViz: # top level tab
               route: /inductioncultureimageviewer
               link: /inductioncultureimagedetails
               x: 0
-              y: 5
+              y: 6
               height: 1
               width: 1
               type: antd-table
@@ -232,7 +247,7 @@ SciViz: # top level tab
               route: /inductionculturednaviewer
               link: /inductionculturednadetails
               x: 0
-              y: 6
+              y: 7
               height: 1
               width: 1
               type: antd-table
@@ -264,10 +279,23 @@ SciViz: # top level tab
                 - type: table
                   input: Induction ID
                   destination: utah_organoids_lineage.Lineage
+            Induction Culture Well:
+              route: /inductionculturewellform
+              x: 0
+              y: 1
+              height: 1
+              width: 1
+              type: form
+              tables:
+                - utah_organoids_induction.InductionCultureWell
+              map:
+                - type: table
+                  input: Induction Culture
+                  destination: utah_organoids_induction.InductionCulture
             Induction Culture Condition:
               route: /inductioncultureconditionform
               x: 0
-              y: 1
+              y: 2
               height: 2
               width: 1
               type: form
@@ -283,7 +311,7 @@ SciViz: # top level tab
             Induction Culture Supplement:
               route: /inductionculturesupplementform
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: form
@@ -296,7 +324,7 @@ SciViz: # top level tab
             Induction Culture Media:
               route: /inductionculturemediaform
               x: 0
-              y: 4
+              y: 5
               height: 2
               width: 1
               type: form
@@ -309,7 +337,7 @@ SciViz: # top level tab
             Induction Culture Substrate:
               route: /inductionculturesubstrateform
               x: 0
-              y: 6
+              y: 7
               height: 1
               width: 1
               type: form
@@ -322,7 +350,7 @@ SciViz: # top level tab
             Induction Culture Image:
               route: /inductioncultureimageform
               x: 0
-              y: 7
+              y: 9
               height: 1
               width: 1
               type: form
@@ -335,7 +363,7 @@ SciViz: # top level tab
             Induction Culture DNA:
               route: /inductionculturednaform
               x: 0
-              y: 8
+              y: 10
               height: 1
               width: 1
               type: form
@@ -370,11 +398,26 @@ SciViz: # top level tab
                 def dj_query(utah_organoids_induction):
                     table = utah_organoids_induction.PostInductionCulture
                     return dict(query=(table), fetch_args=[])
+            Post Induction Culture Well:
+              route: /postinductionculturewellviewer
+              link: /postinductionculturewelldetails
+              x: 0
+              y: 1
+              height: 1
+              width: 1
+              type: antd-table
+              restriction: >
+                def restriction(**kwargs):
+                    return dict(**kwargs)
+              dj_query: >
+                def dj_query(utah_organoids_induction):
+                    table = utah_organoids_induction.PostInductionCultureWell
+                    return dict(query=(table), fetch_args=[])
             Post Induction Culture Condition:
               route: /postinductioncultureconditionviewer
               link: /postinductioncultureconditiondetails
               x: 0
-              y: 1
+              y: 2
               height: 1
               width: 1
               type: antd-table
@@ -389,7 +432,7 @@ SciViz: # top level tab
               route: /postinductionculturesupplementviewer
               link: /postinductionculturesupplementdetails
               x: 0
-              y: 2
+              y: 3
               height: 1
               width: 1
               type: antd-table
@@ -404,7 +447,7 @@ SciViz: # top level tab
               route: /postinductionculturemediaviewer
               link: /postinductionculturemediadetails
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: antd-table
@@ -419,7 +462,7 @@ SciViz: # top level tab
               route: /postinductionculturesubstrateviewer
               link: /postinductionculturesubstratedetails
               x: 0
-              y: 4
+              y: 5
               height: 1
               width: 1
               type: antd-table
@@ -451,10 +494,23 @@ SciViz: # top level tab
                 - type: table
                   input: Induction Culture
                   destination: utah_organoids_induction.InductionCulture
+            Post Induction Culture Well:
+              route: /postinductionculturewellform
+              x: 0
+              y: 1
+              height: 1
+              width: 1
+              type: form
+              tables:
+                - utah_organoids_induction.PostInductionCultureWell
+              map:
+                - type: table
+                  input: Post Induction Culture
+                  destination: utah_organoids_induction.PostInductionCulture
             Post Induction Culture Condition:
               route: /postinductioncultureconditionform
               x: 0
-              y: 1
+              y: 2
               height: 2
               width: 1
               type: form
@@ -470,7 +526,7 @@ SciViz: # top level tab
             Post Induction Culture Supplement:
               route: /postinductionculturesupplementform
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: form
@@ -483,7 +539,7 @@ SciViz: # top level tab
             Post Induction Culture Media:
               route: /postinductionculturemediaform
               x: 0
-              y: 4
+              y: 5
               height: 2
               width: 1
               type: form
@@ -496,7 +552,7 @@ SciViz: # top level tab
             Post Induction Culture Substrate:
               route: /postinductionculturesubstrateform
               x: 0
-              y: 6
+              y: 7
               height: 1
               width: 1
               type: form
@@ -529,11 +585,26 @@ SciViz: # top level tab
                 def dj_query(utah_organoids_induction):
                     table = utah_organoids_induction.RosetteCulture
                     return dict(query=(table), fetch_args=[])
+            Rosette Culture Well:
+              route: /rosetteculturewelltable
+              link: /rosetteculturewelldetails
+              x: 0
+              y: 1
+              height: 1
+              width: 1
+              type: antd-table
+              restriction: >
+                def restriction(**kwargs):
+                    return dict(**kwargs)
+              dj_query: >
+                def dj_query(utah_organoids_induction):
+                    table = utah_organoids_induction.RosetteCultureWell
+                    return dict(query=(table), fetch_args=[])
             Rosette Culture Condition:
               route: /rosettecultureconditiontable
               link: /rosettecultureconditiondetails
               x: 0
-              y: 1
+              y: 2
               height: 1
               width: 1
               type: antd-table
@@ -548,7 +619,7 @@ SciViz: # top level tab
               route: /rosetteculturesupplementtable
               link: /rosetteculturesupplementdetails
               x: 0
-              y: 2
+              y: 3
               height: 1
               width: 1
               type: antd-table
@@ -563,7 +634,7 @@ SciViz: # top level tab
               route: /rosetteculturemediatable
               link: /rosetteculturemediadetails
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: antd-table
@@ -578,7 +649,7 @@ SciViz: # top level tab
               route: /rosetteculturesubstratetable
               link: /rosetteculturesubstratedetails
               x: 0
-              y: 4
+              y: 5
               height: 1
               width: 1
               type: antd-table
@@ -593,7 +664,7 @@ SciViz: # top level tab
               route: /rosettecultureimagetable
               link: /rosettecultureimagedetails
               x: 0
-              y: 5
+              y: 6
               height: 1
               width: 1
               type: antd-table
@@ -628,10 +699,23 @@ SciViz: # top level tab
                 - type: table
                   input: User
                   destination: utah_organoids_induction.User
+            Rosette Culture Well:
+              route: /rosetteculturewellform
+              x: 0
+              y: 1
+              height: 2
+              width: 1
+              type: form
+              tables:
+                - utah_organoids_induction.RosetteCultureWell
+              map:
+                - type: table
+                  input: Rosette Culture
+                  destination: utah_organoids_induction.RosetteCulture
             Rosette Culture Condition:
               route: /rosettecultureconditionform
               x: 0
-              y: 2
+              y: 3
               height: 1
               width: 1
               type: form
@@ -644,7 +728,7 @@ SciViz: # top level tab
             Rosette Culture Supplement:
               route: /rosetteculturesupplementform
               x: 0
-              y: 3
+              y: 4
               height: 1
               width: 1
               type: form
@@ -657,7 +741,7 @@ SciViz: # top level tab
             Rosette Culture Media:
               route: /rosetteculturemediaform
               x: 0
-              y: 4
+              y: 5
               height: 2
               width: 1
               type: form
@@ -670,7 +754,7 @@ SciViz: # top level tab
             Rosette Culture Substrate:
               route: /rosetteculturesubstrateform
               x: 0
-              y: 6
+              y: 7
               height: 1
               width: 1
               type: form
@@ -683,7 +767,7 @@ SciViz: # top level tab
             Rosette Culture Image:
               route: /rosettecultureimageform
               x: 0
-              y: 7
+              y: 8
               height: 1
               width: 1
               type: form
