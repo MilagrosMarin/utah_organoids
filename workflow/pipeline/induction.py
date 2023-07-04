@@ -189,7 +189,7 @@ class RosetteCultureCondition(dj.Manual):
     -> RosetteCulture
     rosette_condition_date: date
     ---
-    rosette_relative_day: int # relative to date for picking rosette
+    rosette_relative_day=null: int # relative to date for picking rosette
     rosette_condition_note='': varchar(256)
     """
 
