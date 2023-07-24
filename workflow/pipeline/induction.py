@@ -259,7 +259,7 @@ class RosetteExperiment(dj.Manual):
 class OrganoidCulture(dj.Manual):
     definition = """ # Organoids embedded in matrigel 10cm dish for up to 5 months
     -> lineage.Lineage
-    organoid_plate_id: int
+    organoid_plate_id: varchar(32)
     ---
     organoid_embed_date: date
     """
