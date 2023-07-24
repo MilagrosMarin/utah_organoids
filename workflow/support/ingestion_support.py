@@ -2,6 +2,7 @@ import datajoint as dj
 import re
 from pathlib import Path
 from datetime import datetime, timedelta
+import numpy as np
 
 from workflow import REL_PATH_INBOX, SUPPORT_DB_PREFIX
 from workflow.pipeline import induction, ephys
