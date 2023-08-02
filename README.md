@@ -67,7 +67,7 @@ DataJoint workflow for the Organoids project at the University of Utah.
     ipython
     ```
 
-1. Run data upload for a single session.
+1. Run data upload for a single subject and a single recording session.
     ```python
     from workflow import upload_session_data
     upload_session_data('<Relative path of data>')

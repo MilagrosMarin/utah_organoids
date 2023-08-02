@@ -21,7 +21,7 @@ class User(dj.Manual):
 class InductionCulture(dj.Manual):
     definition = """ # Plate contains 6 wells
     -> lineage.Lineage
-    induction_plate_id: varchar(16)
+    induction_plate_id: varchar(32)
     """
 
 
@@ -29,7 +29,7 @@ class InductionCulture(dj.Manual):
 class InductionCultureWell(dj.Manual):
     definition = """ # Plate contains 6 wells
     -> InductionCulture
-    induction_well_id: int
+    induction_well_id: int unsigned
     """
 
 
@@ -41,7 +41,7 @@ class InductionCultureCondition(dj.Manual):
     ---
     induction_step: enum('ipsc_replate', 'induction_start', 'media_change')
     media_change=null: bool
-    density=null: int           # units of percentage
+    density=null: int unsigned          # units of percentage
     discontinued=null: bool
     induction_condition_note='': varchar(256)
     """
@@ -53,7 +53,7 @@ class InductionCultureSupplement(dj.Manual):
     -> InductionCultureCondition
     supplement: enum('Dorsomorphin', 'SB431542')
     ---
-    concentration: int 
+    concentration: int unsigned
     units: enum('micromolar', 'ng/mL')
     """
 
@@ -64,7 +64,7 @@ class InductionCultureMedia(dj.Manual):
     -> InductionCultureCondition
     media_name: varchar(32)
     ---
-    percent_media_changed: int        # Percentage of the media used in the culture, 1-100
+    percent_media_changed: int unsigned     # Percentage of the media used in the culture, 1-100
     manufacturer='': varchar(32)
     catalog_number='': varchar(32)
     media_note='': varchar(256)
@@ -102,7 +102,7 @@ class InductionCultureDNA(dj.Manual):
 class PostInductionCulture(dj.Manual):
     definition = """ # Plate contains 6 wells
     -> InductionCulture
-    post_induction_plate_id: varchar(16)
+    post_induction_plate_id: varchar(32)
     """
 
 
@@ -110,7 +110,7 @@ class PostInductionCulture(dj.Manual):
 class PostInductionCultureWell(dj.Manual):
     definition = """ # Plate contains 6 wells
     -> PostInductionCulture
-    post_induction_well_id: int
+    post_induction_well_id: int unsigned
     """
 
 
@@ -122,7 +122,7 @@ class PostInductionCultureCondition(dj.Manual):
     ---
     post_induction_step: enum('ipsc_replate', 'post_induction_start', 'media_change')
     media_change=null: bool
-    density=null: int               # units of percentage
+    density=null: int unsigned               # units of percentage
     discontinued=null: bool
     post_induction_condition_note='': varchar(256)
     """
@@ -134,7 +134,7 @@ class PostInductionCultureSupplement(dj.Manual):
     -> PostInductionCultureCondition
     supplement: enum('EGF+FGF', 'EGF', 'FGF')
     ---
-    concentration: int 
+    concentration: int unsigned 
     units: enum('micromolar', 'ng/mL')
     """
 
@@ -145,7 +145,7 @@ class PostInductionCultureMedia(dj.Manual):
     -> PostInductionCultureCondition
     media_name: varchar(32)
     ---
-    percent_media_changed: int      # Percentage of the media used in the culture, 1-100
+    percent_media_changed: int unsigned      # Percentage of the media used in the culture, 1-100
     manufacturer='': varchar(32)
     catalog_number='': varchar(32)
     media_note='': varchar(256)
@@ -164,7 +164,7 @@ class PostInductionCultureSubstrate(dj.Manual):
 class RosetteCulture(dj.Manual):
     definition = """ # Plate contains 96 wells (12 columns, 8 rows)
     -> PostInductionCulture
-    rosette_plate_id: varchar(16)
+    rosette_plate_id: varchar(32)
     ---
     -> User
     single_rosette_date: date   # date for picking rosette
@@ -189,7 +189,7 @@ class RosetteCultureCondition(dj.Manual):
     -> RosetteCulture
     rosette_condition_date: date
     ---
-    rosette_relative_day=null: int # relative to date for picking rosette
+    rosette_relative_day=null: int unsigned # relative to date for picking rosette
     rosette_condition_note='': varchar(256)
     """
 
@@ -200,7 +200,7 @@ class RosetteCultureSupplement(dj.Manual):
     -> RosetteCultureCondition
     supplement: enum('EGF+FGF', 'EGF', 'FGF')
     ---
-    concentration: int 
+    concentration: int unsigned 
     units: enum('micromolar', 'ng/mL')
     """
 
@@ -211,7 +211,7 @@ class RosetteCultureMedia(dj.Manual):
     -> RosetteCultureCondition
     media_name: varchar(32)
     ---
-    media_amount: int        # Percentage of the media used in the culture, 1-100
+    media_amount: int unsigned        # Percentage of the media used in the culture, 1-100
     manufacturer='': varchar(32)
     catalog_number='': varchar(32)
     media_note='': varchar(256)
@@ -239,7 +239,7 @@ class RosetteCultureImage(dj.Manual):
 @schema
 class Experiment(dj.Manual):
     definition = """
-    experiment_id: varchar(8) # i.e. rosette id and organoid id, e.g. AS001
+    experiment_id: varchar(4) # i.e. rosette id and organoid id, e.g. O17-20
     """
 
 
@@ -259,7 +259,7 @@ class RosetteExperiment(dj.Manual):
 class OrganoidCulture(dj.Manual):
     definition = """ # Organoids embedded in matrigel 10cm dish for up to 5 months
     -> lineage.Lineage
-    organoid_plate_id: int
+    organoid_plate_id: varchar(32)
     ---
     organoid_embed_date: date
     """
@@ -279,7 +279,7 @@ class OrganoidCultureCondition(dj.Manual):
     -> OrganoidCulture
     organoid_condition_date: date
     ---
-    organoid_relative_day=null: int # relative to date for organoid embedding
+    organoid_relative_day=null: int unsigned # relative to date for organoid embedding
     organoid_condition_note='': varchar(256)
     """
 
@@ -290,7 +290,7 @@ class OrganoidCultureSupplement(dj.Manual):
     -> OrganoidCultureCondition
     supplement: varchar(32)
     ---
-    concentration: int 
+    concentration: int unsigned 
     units: enum('micromolar', 'ng/mL')
     """
 
@@ -301,7 +301,7 @@ class OrganoidCultureMedia(dj.Manual):
     -> OrganoidCultureCondition
     media_name: varchar(32)
     ---
-    media_amount: int        # Percentage of the media used in the culture, 1-100
+    media_amount: int unsigned        # Percentage of the media used in the culture, 1-100
     manufacturer='': varchar(32)
     catalog_number='': varchar(32)
     media_note='': varchar(256)
