@@ -194,31 +194,12 @@ class RosetteCultureImage(dj.Manual):
 @schema
 class Experiment(dj.Manual):
     definition = """
-    experiment_id: varchar(4) # i.e. rosette id and organoid id, e.g. O17-20
-    """
-
-
-@schema
-class IsolatedRosetteExperiment(dj.Manual):
-    definition = """
-    -> Experiment
+    organoid_id: varchar(4)               # e.g. O17
     experiment_datetime: datetime         # Experiment start date and time
-    -> IsolatedRosetteCulture
     ---
     -> [nullable] User
-    experiment_plan: varchar(64)          # e.g. mrna lysate, oct, protein lysate, or matrigel embedding
+    -> [nullable] IsolatedRosetteCulture
+    -> [nullable] OrganoidCulture
+    experiment_plan: varchar(64)          # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
     experiment_directory='': varchar(256) # Path to the subject data directory
-    """
-
-
-@schema
-class OrganoidExperiment(dj.Manual):
-    definition = """
-    -> Experiment
-    experiment_datetime: datetime           # Experiment start date and time
-    -> OrganoidCulture
-    ---
-    -> [nullable] User
-    experiment_plan: varchar(64)            # e.g. ephys, tracing
-    experiment_directory='': varchar(256)   # Path to the subject data directory
     """
