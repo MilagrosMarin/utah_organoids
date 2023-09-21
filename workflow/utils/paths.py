@@ -21,6 +21,6 @@ def get_ephys_root_data_dir() -> Path:
 
 def get_subject_directory(experiment_key: dict) -> Path:
     return find_full_path(
-        get_ephys_root_data_dir()
-        / (culture.Experiment & experiment_key).fetch1("experiment_directory")
+        get_ephys_root_data_dir(),
+        (culture.Experiment & experiment_key).fetch1("experiment_directory"),
     )
