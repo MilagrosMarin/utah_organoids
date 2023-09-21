@@ -34,7 +34,7 @@ class FileProcessing(dj.Imported):
             subject_key = {}      
             parent_dir = remote_fullpath.parent
             if remote_fullpath.suffix == ".rhs": 
-                filename_prefix, start_time = re.search(r"(.*)_(\d{6}_\d{6})", file).groups()
+                filename_prefix, start_time = re.search(r"(.*)_(\d{6}_\d{6})", remote_fullpath).groups()
                 start_time = np.datetime64(
                     datetime.strptime(start_time, "%y%m%d_%H%M%S")
                 )  # start time based on the file name
