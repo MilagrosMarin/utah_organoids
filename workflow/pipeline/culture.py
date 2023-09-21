@@ -150,5 +150,13 @@ class Experiment(dj.Manual):
     -> [nullable] IsolatedRosetteCulture
     -> [nullable] OrganoidCulture
     experiment_plan: varchar(64)          # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
-    experiment_directory='': varchar(256) # Path to the subject data directory
+    """
+
+
+@schema
+class ExperimentDirectory(dj.Manual):
+    definition = """
+    -> Experiment
+    ---
+    experiment_directory: varchar(256)   # Path to the subject data directory for long term recordings
     """
