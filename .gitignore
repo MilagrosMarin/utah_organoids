@@ -62,6 +62,7 @@ instance/
 # Scrapy stuff:
 .scrapy
 scratchpaper.*
+scratch/*
 
 # Sphinx documentation
 docs/_build/
@@ -103,8 +104,7 @@ ENV/
 .mypy_cache/
 
 # datajoint
-dj_local_conf.json
-dj_local_conf_old.json
+dj_local_c*.json
 
 # emacs
 **/*~
