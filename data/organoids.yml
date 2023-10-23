@@ -1,0 +1,76 @@
+# Used to populate culture.OrganoidCulture and culture.Organoid
+organoid_culture:
+  - organoid_culture_id: O09-12 # culture.OrganoidCulture primary key
+    user:
+    organoid_culture_date:
+    organoid_culture_plate:
+    isolated_rosette_culture_wells:
+    organoid: # culture.Organoid
+      - organoid_id: O09 # culture.Organoid primary key
+        experiment_type: ephys
+        experiment_directory: O09-12_raw
+
+      - organoid_id: O10
+        user:
+        experiment_type: ephys
+        experiment_directory: O09-12_raw
+
+      - organoid_id: O11
+        user:
+        experiment_type: ephys
+        experiment_directory: O09-12_raw
+
+      - organoid_id: O12
+        user:
+        experiment_type: ephys
+        experiment_directory: O09-12_raw
+
+  - organoid_culture_id: O13-16
+    user:
+    organoid_culture_date:
+    organoid_culture_plate:
+    isolated_rosette_culture_wells:
+    organoid:
+      - organoid_id: O13
+        experiment_type: ephys
+        experiment_directory: O13-16_raw
+
+      - organoid_id: O14
+        user:
+        experiment_type: ephys
+        experiment_directory: O13-16_raw
+
+      - organoid_id: O15
+        user:
+        experiment_type: ephys
+        experiment_directory: O13-16_raw
+
+      - organoid_id: O16
+        user:
+        experiment_type: ephys
+        experiment_directory: O13-16_raw
+
+  - organoid_culture_id: O17-20
+    user:
+    organoid_culture_date:
+    organoid_culture_plate:
+    isolated_rosette_culture_wells:
+    organoid:
+      - organoid_id: O17
+        experiment_type: ephys
+        experiment_directory: O17-20_raw
+
+      - organoid_id: O18
+        user:
+        experiment_type: ephys
+        experiment_directory: O17-20_raw
+
+      - organoid_id: O19
+        user:
+        experiment_type: ephys
+        experiment_directory: O17-20_raw
+
+      - organoid_id: O20
+        user:
+        experiment_type: ephys
+        experiment_directory: O17-20_raw
