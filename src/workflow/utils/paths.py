@@ -2,8 +2,8 @@ from pathlib import Path
 import datajoint as dj
 
 from element_interface.utils import find_full_path
-from workflow.pipeline import culture
 import subprocess
+from typing import Any
 
 
 def get_raw_root_data_dir() -> Path:
@@ -20,12 +20,12 @@ def get_ephys_root_data_dir() -> Path:
     return get_raw_root_data_dir()
 
 
-def get_organoid_directory(experiment_key: dict) -> Path:
+def get_organoid_directory(organoid_key: dict[str, Any]) -> Path:
     from workflow.pipeline import culture
 
     return find_full_path(
         get_ephys_root_data_dir(),
-        (culture.Organoid & experiment_key).fetch1("experiment_directory"),
+        (culture.Organoid & organoid_key).fetch1("experiment_directory"),
     )
 
 
