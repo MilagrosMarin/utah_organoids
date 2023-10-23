@@ -12,20 +12,25 @@ El2ROW = [20, 5, 19, 6, 18, 7, 32, 9, 31, 10, 30, 11, 21, 4, 22, 3, 23, 2, 25, 1
 electrode_to_row = np.array(El2ROW) - 1  # 0-based indexing
 
 
-def get_channel_to_electrode_map(port_id: str) -> dict[str, int]:
-    """Returns channel to electrode number mapping.
+def get_channel_to_electrode_map(port_id: str | None = None) -> dict[str, int]:
+    """Returns dictionary of channel to electrode number mapping (channel : electrode)
 
     Args:
-        port_id (str): 'A', 'B', 'C', 'D'
+        port_id (str | None): 'A', 'B', 'C', 'D'
 
     Returns:
         dict[str, int]: channel to electrode number mapping.
     """
-    if port_id not in ["A", "B", "C", "D"]:
-        raise ValueError("port_id must be one of 'A', 'B', 'C', 'D'")
-    channel_to_electrode_map = {
-        f"{port_id}-{value:03}": key for key, value in enumerate(electrode_to_row)
-    }
+    if port_id in ["A", "B", "C", "D"]:
+        channel_to_electrode_map = {
+            f"{port_id}-{value:03}": key for key, value in enumerate(electrode_to_row)
+        }
+    elif port_id is None:
+        channel_to_electrode_map = {
+            str(value): key for key, value in enumerate(electrode_to_row)
+        }
+    else:
+        raise ValueError(f"Invalid port_id: {port_id}")
 
     # Sort by the key
     return {
