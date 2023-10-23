@@ -115,11 +115,12 @@ class IsolatedRosetteCultureCondition(dj.Manual):
 @schema
 class OrganoidCulture(dj.Manual):
     definition = """ # Each organoid is embedded in a matrigel droplet, and multiple organoids are embedded in a 10cm dish for up to 5 months
-    -> IsolatedRosetteCulture
-    organoid_culture_date: date
-    organoid_culture_plate: int unsigned
+    organoid_culture_id                 : varchar(16) # e.g., O09-12
     ---
-    isolated_rosette_culture_wells: varchar(8)    # Wells from the 96-well plate used to embed organoids
+    -> [nullable] User
+    organoid_culture_date=null          : date
+    organoid_culture_plate=null         : int unsigned
+    isolated_rosette_culture_wells=null : varchar(8) # Wells from the 96-well plate used to embed organoids
     """
 
 
