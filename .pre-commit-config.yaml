@@ -1,6 +1,6 @@
 default_language_version:
   python: python3.10
-files: "(workflow | notebooks)\/.*$"
+files: "(workflow|notebooks)\/.*$"
 exclude: "\\.svg$"
 default_stages: [commit, push]
 repos:
