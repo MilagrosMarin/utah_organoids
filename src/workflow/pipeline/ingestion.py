@@ -100,7 +100,7 @@ def ingest_probe() -> None:
                     | {
                         "probe_type": probe_type,
                         "electrode": e,
-                        "channel_id": ch,
+                        "channel": ch,
                     }
                     for ch, e in get_channel_to_electrode_map().items()
                 ]
