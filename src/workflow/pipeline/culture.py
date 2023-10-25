@@ -115,37 +115,42 @@ class IsolatedRosetteCultureCondition(dj.Manual):
 @schema
 class OrganoidCulture(dj.Manual):
     definition = """ # Each organoid is embedded in a matrigel droplet, and multiple organoids are embedded in a 10cm dish for up to 5 months
-    organoid_culture_id                 : varchar(16) # e.g., O09-12
+    -> IsolatedRosetteCulture
+    organoid_culture_date: date
+    organoid_culture_plate: int unsigned
     ---
-    -> [nullable] User
-    organoid_culture_date=null          : date
-    organoid_culture_plate=null         : int unsigned
-    isolated_rosette_culture_wells=null : varchar(8) # Wells from the 96-well plate used to embed organoids
+    isolated_rosette_culture_wells: varchar(8)    # Wells from the 96-well plate used to embed organoids
     """
-
-    class Condition(dj.Part):
-        definition = """
-        -> master
-        organoid_condition_datetime             : datetime
-        ---
-        quality=''                              : varchar(32) # e.g. cell detach, cell death, color change, morphology change
-        supplement=''                           : varchar(32)
-        media=''                                : varchar(32)
-        media_percent_changed=null              : int unsigned # Percent of the media changed, 1-100
-        substrate=null                          : enum('', 'matrigel')
-        organoid_condition_image_directory=''   : varchar(256) # Images stored with "id_datetime" naming convention.
-        organoid_condition_note=''              : varchar(256)
-        """
 
 
 @schema
-class Organoid(dj.Manual):
+class OrganoidCultureCondition(dj.Manual):
     definition = """
-    organoid_id                    : varchar(4) # e.g. O17
+    -> OrganoidCulture
+    organoid_condition_datetime: datetime
     ---
+    -> [nullable] User
+    quality='': varchar(32) # e.g. cell detach, cell death, color change, morphology change
+    supplement='': varchar(32)
+    media='': varchar(32)
+    media_percent_changed=null: int unsigned # Percent of the media changed, 1-100
+    substrate=null: enum('matrigel')
+    organoid_condition_image_directory='': varchar(256) # Images stored with "id_datetime" naming convention.
+    organoid_condition_note='': varchar(256)
+    """
+
+
+@schema
+class Experiment(dj.Manual):
+    definition = """ # Experiment to be performed on each organoid
+    organoid_id: varchar(4)               # e.g. O17
+    experiment_datetime: datetime         # Experiment start date and time
+    ---
+    -> [nullable] User
+    -> [nullable] IsolatedRosetteCulture
     -> [nullable] OrganoidCulture
-    experiment_type=null          : varchar(64) # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
-    experiment_directory=null     : varchar(64) # data directory for long term recordings relative to the root directory. 
+    experiment_plan: varchar(64)          # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
+    experiment_directory='': varchar(256) # Path to the subject data directory
     """
 
 
