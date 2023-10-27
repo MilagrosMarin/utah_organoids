@@ -1,0 +1,66 @@
+A1x32-6mm-100-177-H32_21mm: &A1x32-6mm-100-177-H32_21mm
+  probe_type: A1x32-6mm-100-177-H32_21mm
+  site_count_per_shank: 32
+  col_spacing:
+  row_spacing: 100 # μm
+  row_offset:
+  col_count_per_shank: 1
+  shank_count: 1
+  shank_spacing:
+  thickness: 15 # μm
+  tip_distance: 50 # μm
+
+probes:
+  - serial_number: 12D77 # Unique probe identifier
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: 12D76
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: 12D51
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: 12D4D
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: Q983
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: T590
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: T591
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: T593
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm
+
+  - serial_number: T595
+    maker: NeuroNexus
+    comment:
+    config:
+      <<: *A1x32-6mm-100-177-H32_21mm

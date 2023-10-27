@@ -1,0 +1,65 @@
+# Used to populate culture.Experiment
+- organoid_id: O09
+  experiment_datetime: "2023-05-18"
+  experiment_plan: ephys
+  experiment_directory: O09-12_raw
+
+- organoid_id: O10
+  experiment_datetime: "2023-05-18"
+  experiment_plan: ephys
+  experiment_directory: O09-12_raw
+
+- organoid_id: O11
+  experiment_datetime: "2023-05-18"
+  experiment_plan: ephys
+  experiment_directory: O09-12_raw
+
+- organoid_id: O12
+  experiment_datetime: "2023-05-18"
+  experiment_plan: ephys
+  experiment_directory: O09-12_raw
+
+- organoid_id: O12
+  experiment_datetime: "2023-05-18"
+  experiment_plan: ephys
+  experiment_directory: O09-12_raw
+
+- organoid_id: O13
+  experiment_datetime: "2023-06-08"
+  experiment_plan: ephys
+  experiment_directory: O13-16_raw
+
+- organoid_id: O14
+  experiment_datetime: "2023-06-08"
+  experiment_plan: ephys
+  experiment_directory: O13-16_raw
+
+- organoid_id: O15
+  experiment_datetime: "2023-06-08"
+  experiment_plan: ephys
+  experiment_directory: O13-16_raw
+
+- organoid_id: O16
+  experiment_datetime: "2023-06-08"
+  experiment_plan: ephys
+  experiment_directory: O13-16_raw
+
+- organoid_id: O17
+  experiment_datetime: "2023-07-12"
+  experiment_plan: ephys
+  experiment_directory: O17-20_raw
+
+- organoid_id: O18
+  experiment_datetime: "2023-07-12"
+  experiment_plan: ephys
+  experiment_directory: O17-20_raw
+
+- organoid_id: O19
+  experiment_datetime: "2023-07-12"
+  experiment_plan: ephys
+  experiment_directory: O17-20_raw
+
+- organoid_id: O20
+  experiment_datetime: "2023-07-12"
+  experiment_plan: ephys
+  experiment_directory: O17-20_raw

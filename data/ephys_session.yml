@@ -1,0 +1,843 @@
+- organoid_id: O09
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 12:25:00"
+  end_time: "2023-05-18 18:15:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100 # uM
+  session_probe:
+    probe: Q983 # serial number
+    port_id: A
+    used_electrodes: # if all electrodes are used, no need to record
+
+- organoid_id: O10
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 12:25:00"
+  end_time: "2023-05-18 18:15:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+- organoid_id: O11
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 12:25:00"
+  end_time: "2023-05-18 18:15:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50 # uM
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O12
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 12:25:00"
+  end_time: "2023-05-18 18:15:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+- organoid_id: O09
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 18:15:00"
+  end_time: "2023-05-19 09:30:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100 # uM
+  session_probe:
+    probe: Q983 # serial number
+    port_id: A
+    used_electrodes: # if all electrodes are used, no need to record
+
+- organoid_id: O10
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 18:15:00"
+  end_time: "2023-05-19 09:30:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+- organoid_id: O11
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 18:15:00"
+  end_time: "2023-05-19 09:30:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50 # uM
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O12
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-18 18:15:00"
+  end_time: "2023-05-19 09:30:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+- organoid_id: O09
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 09:30:00"
+  end_time: "2023-05-19 15:35:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100 # uM
+  session_probe:
+    probe: Q983 # serial number
+    port_id: A
+    used_electrodes: # if all electrodes are used, no need to record
+
+- organoid_id: O10
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 09:30:00"
+  end_time: "2023-05-19 15:35:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+- organoid_id: O11
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 09:30:00"
+  end_time: "2023-05-19 15:35:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50 # uM
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O12
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 09:30:00"
+  end_time: "2023-05-19 15:35:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+- organoid_id: O09
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 15:45:00"
+  end_time: "2023-05-20 15:40:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100 # uM
+  session_probe:
+    probe: Q983 # serial number
+    port_id: A
+    used_electrodes: # if all electrodes are used, no need to record
+
+- organoid_id: O10
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 15:45:00"
+  end_time: "2023-05-20 15:40:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+- organoid_id: O11
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 15:45:00"
+  end_time: "2023-05-20 15:40:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50 # uM
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O12
+  insertion_number: 0
+  experiment_datetime: "2023-05-18"
+  start_time: "2023-05-19 15:45:00"
+  end_time: "2023-05-20 15:40:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+- organoid_id: O13
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 19:05:00"
+  end_time: "2023-06-08 23:35:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+      ]
+
+- organoid_id: O14
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 19:05:00"
+  end_time: "2023-06-08 23:35:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+- organoid_id: O15
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 19:05:00"
+  end_time: "2023-06-08 23:35:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O16
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 19:05:00"
+  end_time: "2023-06-08 23:35:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O13
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 23:35:00"
+  end_time: "2023-06-09 10:20:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+      ]
+
+- organoid_id: O14
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 23:35:00"
+  end_time: "2023-06-09 10:20:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+- organoid_id: O15
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 23:35:00"
+  end_time: "2023-06-09 10:20:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O16
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-08 23:35:00"
+  end_time: "2023-06-09 10:20:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O13
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 10:20:00"
+  end_time: "2023-06-09 15:35:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+      ]
+
+- organoid_id: O14
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 10:20:00"
+  end_time: "2023-06-09 15:35:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+- organoid_id: O15
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 10:20:00"
+  end_time: "2023-06-09 15:35:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O16
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 10:20:00"
+  end_time: "2023-06-09 15:35:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O13
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 15:40:00"
+  end_time: "2023-06-10 14:15:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+      ]
+
+- organoid_id: O14
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 15:40:00"
+  end_time: "2023-06-10 14:15:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration:
+  session_probe:
+    probe: T590
+    port_id: B
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+- organoid_id: O15
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 15:40:00"
+  end_time: "2023-06-10 14:15:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O16
+  insertion_number: 0
+  experiment_datetime: "2023-06-08"
+  start_time: "2023-06-09 15:40:00"
+  end_time: "2023-06-10 14:15:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T593
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+- organoid_id: O17
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 13:10:00"
+  end_time: "2023-07-12 16:10:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+      ]
+
+- organoid_id: O18
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 13:10:00"
+  end_time: "2023-07-12 16:10:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration: 100
+  session_probe:
+    organoid_id: O18
+    probe: T590
+    port_id: B
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+- organoid_id: O19
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 13:10:00"
+  end_time: "2023-07-12 16:10:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O20
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 13:10:00"
+  end_time: "2023-07-12 16:10:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T595
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+- organoid_id: O17
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 16:10:00"
+  end_time: "2023-07-13 12:35:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+      ]
+
+- organoid_id: O18
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 16:10:00"
+  end_time: "2023-07-13 12:35:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration: 100
+  session_probe:
+    organoid_id: O18
+    probe: T590
+    port_id: B
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+- organoid_id: O19
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 16:10:00"
+  end_time: "2023-07-13 12:35:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O20
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-12 16:10:00"
+  end_time: "2023-07-13 12:35:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T595
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+- organoid_id: O17
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 12:35:00"
+  end_time: "2023-07-13 18:10:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+      ]
+
+- organoid_id: O18
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 12:35:00"
+  end_time: "2023-07-13 18:10:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration: 100
+  session_probe:
+    organoid_id: O18
+    probe: T590
+    port_id: B
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+- organoid_id: O19
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 12:35:00"
+  end_time: "2023-07-13 18:10:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O20
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 12:35:00"
+  end_time: "2023-07-13 18:10:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T595
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+- organoid_id: O17
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 18:15:00"
+  end_time: "2023-07-14 15:45:00"
+  session_type: lfp
+  drug_name: 4-AP
+  drug_concentration: 100
+  session_probe:
+    probe: Q983
+    port_id: A
+    used_electrodes:
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+      ]
+
+- organoid_id: O18
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 18:15:00"
+  end_time: "2023-07-14 15:45:00"
+  session_type: lfp
+  drug_name: No Drug
+  drug_concentration: 100
+  session_probe:
+    organoid_id: O18
+    probe: T590
+    port_id: B
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+- organoid_id: O19
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 18:15:00"
+  end_time: "2023-07-14 15:45:00"
+  session_type: lfp
+  drug_name: Bicuculline
+  drug_concentration: 50
+  session_probe:
+    probe: T591
+    port_id: C
+    used_electrodes:
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+- organoid_id: O20
+  insertion_number: 0
+  experiment_datetime: "2023-07-12"
+  start_time: "2023-07-13 18:15:00"
+  end_time: "2023-07-14 15:45:00"
+  session_type: lfp
+  drug_name: Tetrodotoxin
+  drug_concentration: 1
+  session_probe:
+    probe: T595
+    port_id: D
+    used_electrodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
