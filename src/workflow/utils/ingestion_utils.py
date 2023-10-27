@@ -186,7 +186,6 @@ def ingest_ephys_files(organoid_key: dict[str, Any] = {}) -> None:
             file_list.append(
                 {
                     "file_path": (Path(organoid_dir.name) / file).as_posix(),
-                    "organoid_id": organoid["organoid_id"],
                     "acq_software": {".rhd": "Intan", ".rhs": "Intan"}[
                         Path(file).suffix
                     ],
