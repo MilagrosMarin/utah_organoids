@@ -85,7 +85,7 @@ def ingest_probe() -> None:
         probe_yml = get_repo_dir() / "data/probe.yml"
 
     with open(probe_yml, "r") as f:
-        probe_list: list[dict] = yaml.safe_load(f)
+        probe_list: list[dict] = yaml.safe_load(f).pop("probes")
 
     for probe_info in probe_list:
         probe_type = probe_info["config"]["probe_type"]
