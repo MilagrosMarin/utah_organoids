@@ -143,14 +143,18 @@ class OrganoidCultureCondition(dj.Manual):
 @schema
 class Experiment(dj.Manual):
     definition = """ # Experiment to be performed on each organoid
-    organoid_id: varchar(4)               # e.g. O17
-    experiment_datetime: datetime         # Experiment start date and time
+    organoid_id                 : varchar(4) # e.g. O17
+    start_time                  : datetime
+    experiment_plan             : varchar(64) # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
     ---
+    end_time                    : datetime
     -> [nullable] User
     -> [nullable] IsolatedRosetteCulture
     -> [nullable] OrganoidCulture
-    experiment_plan: varchar(64)          # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
-    experiment_directory='': varchar(256) # Path to the subject data directory
+    analysis method
+    -> [nullable] culture.Drug
+    drug_concentration=null     : float # concentration in uM
+    experiment_directory=''     : varchar(256) # Path to the subject data directory
     """
 
 
