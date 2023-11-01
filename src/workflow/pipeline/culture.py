@@ -154,7 +154,16 @@ class Experiment(dj.Manual):
     analysis method
     -> [nullable] culture.Drug
     drug_concentration=null     : float # concentration in uM
-    experiment_directory=''     : varchar(256) # Path to the subject data directory
+    experiment_plan             : varchar(64) # e.g. mrna lysate, oct, protein lysate, or matrigel embedding, ephys, tracing
+    """
+
+
+@schema
+class ExperimentDirectory(dj.Manual):
+    definition = """
+    -> Experiment
+    ---
+    experiment_directory: varchar(256)   # Path to the subject data directory for long term recordings
     """
 
 
