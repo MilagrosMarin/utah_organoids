@@ -158,14 +158,16 @@ def ingest_probe() -> None:
 def ingest_ephys_files(organoid_key: dict[str, Any] = {}) -> None:
     from workflow.pipeline import culture, ephys
 
+    """Insert entries into the ephys.EphysRawFile."""
+
     prev_dir = None
 
     file_list = []
 
-    for organoid in (culture.Experiment & organoid_key).fetch(
-        as_dict=True, order_by="organoid_id"
+    for organoid_dir in np.unique(
+        (culture.ExperimentDirectory & organoid_key).fetch("experiment_directory")
     ):
-        organoid_dir = get_raw_root_data_dir() / organoid["experiment_directory"]
+        organoid_dir = get_raw_root_data_dir() / organoid_dir
 
         if organoid_dir == prev_dir:
             continue
