@@ -1,5 +1,6 @@
 A1x32-6mm-100-177-H32_21mm: &A1x32-6mm-100-177-H32_21mm
-  probe_type: A1x32-6mm-100-177-H32_21mm
+  probe_type: A1x32-6mm-100-177-H32_21mm # name of the probe type
+  probe_fullname: A1x32-6mm-100-177-H32_21mm # full, non-abbreviated name of the probe, if any
   site_count_per_shank: 32
   col_spacing:
   row_spacing: 100 # μm

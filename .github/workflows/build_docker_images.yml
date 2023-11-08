@@ -45,7 +45,7 @@ jobs:
     if: needs.get_last_pushed_tag.result == 'success'
     with:
       jhub_ver: 1.4.2
-      py_ver: "3.10"
+      py_ver: 3.9
       dist: debian
       workflow_version: ${{ needs.get_last_pushed_tag.outputs.version }}
       release_upload_url: ""

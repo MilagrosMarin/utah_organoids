@@ -1,6 +1,6 @@
 import datajoint as dj
 from element_array_ephys import ephys_organoids as ephys
-from element_array_ephys import probe
+from element_array_ephys import ephys_report, probe
 
 from workflow import DB_PREFIX
 from workflow.pipeline import culture

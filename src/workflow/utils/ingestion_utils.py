@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from datetime import datetime
 from pathlib import Path
@@ -59,10 +61,13 @@ def ingest_experiment():
             ).fetch1("file")
         )
     except:
-        organoid_yml = Path(get_repo_dir()) / "data/organoids.yml"
+        organoid_yml = Path(get_repo_dir()) / "data/experiment.yml"
     with open(organoid_yml, "r") as f:
         organoid_info: list[dict] = yaml.safe_load(f)
     culture.Experiment.insert(
+        organoid_info, skip_duplicates=True, ignore_extra_fields=True
+    )
+    culture.ExperimentDirectory.insert(
         organoid_info, skip_duplicates=True, ignore_extra_fields=True
     )
 
@@ -153,14 +158,16 @@ def ingest_probe() -> None:
 def ingest_ephys_files(organoid_key: dict[str, Any] = {}) -> None:
     from workflow.pipeline import culture, ephys
 
+    """Insert entries into the ephys.EphysRawFile."""
+
     prev_dir = None
 
     file_list = []
 
-    for organoid in (culture.Experiment & organoid_key).fetch(
-        as_dict=True, order_by="organoid_id"
+    for organoid_dir in np.unique(
+        (culture.ExperimentDirectory & organoid_key).fetch("experiment_directory")
     ):
-        organoid_dir = get_raw_root_data_dir() / organoid["experiment_directory"]
+        organoid_dir = get_raw_root_data_dir() / organoid_dir
 
         if organoid_dir == prev_dir:
             continue
