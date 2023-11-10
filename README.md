@@ -41,7 +41,7 @@ Get started with the Utah Organoids project by following these steps:
     ```bash
     ./create_dj_config.sh
     ```
-If you encounter permission denial, use the following command:
+If you encounter permission denial, use the following command and then execute the previous command again:
     ```bash
     chmod +x create_dj_config.sh
     ```
