@@ -26,7 +26,7 @@ standard_worker = DataJointWorker(
     autoclear_error_patterns=autoclear_error_patterns,
 )
 
-standard_worker(ingestion_support.FileProcessing, max_calls=5)
+standard_worker(ingestion_support.FileProcessing)
 standard_worker(ephys.EphysSessionInfo, max_calls=5)
 standard_worker(ephys.LFP, max_calls=5)
 standard_worker(analysis.LFPSpectrogram, max_calls=5)
