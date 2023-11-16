@@ -1,8 +1,10 @@
+from typing import Any
+
 import datajoint as dj
 from element_array_ephys import ephys_organoids as ephys
 from element_array_ephys import ephys_report, probe
 
-from workflow import DB_PREFIX
+from workflow import DB_PREFIX, S3_STORE
 from workflow.pipeline import culture
 from workflow.utils.paths import (
     get_ephys_root_data_dir,
@@ -11,6 +13,12 @@ from workflow.utils.paths import (
 )
 
 __all__ = ["ephys", "probe"]
+
+# Set s3 stores configuration
+stores: dict[str, Any] = dj.config.get("stores", {})
+stores.setdefault("data-root", S3_STORE)
+stores.setdefault("ephys-store", S3_STORE)
+dj.config["stores"] = stores
 
 
 if not ephys.schema.is_activated():
