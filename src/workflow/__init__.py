@@ -1,9 +1,6 @@
 import os
 
 import datajoint as dj
-from dotenv import load_dotenv
-
-_ = load_dotenv()  # load environment variables
 
 # from scripts.initiate_session import upload_session_data
 
