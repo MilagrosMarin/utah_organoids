@@ -1,5 +1,19 @@
 # Changelog
 
+## `v0.4.1`
+
+
+### Bug Fixes
+
+* :bug: fix dj stores ([36c57a1](https://github.com/dj-sciops/utah_organoids/commit/36c57a1bb1614bcbeda896a07256bfe9ce457156))
+* :bug: set s3 stores config from env ([4729e85](https://github.com/dj-sciops/utah_organoids/commit/4729e85916d673130af620426609b3c4cc20100c))
+
+
+### Code Refactoring
+
+* :art: update to use FileProcessing ([2fe6add](https://github.com/dj-sciops/utah_organoids/commit/2fe6add8c2e5ae9a2701a9042e74593cf6fff300))
+
+
 ## `v0.4.0`
 
 
