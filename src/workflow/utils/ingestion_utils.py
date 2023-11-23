@@ -241,3 +241,70 @@ def ingest_ephys_session() -> None:
         skip_duplicates=True,
         ignore_extra_fields=True,
     )
+
+
+def create_sessions(
+    experiment_key: dict[str, Any], duration_in_minutes: int = 30
+) -> list[dict]:
+    """Creates a list of session dictionaries for a given experiment.
+
+    Args:
+        experiment_key (dict[str, Any]): A key fetched from culture.Experiment.
+        duration_in_minutes (int, optional): The duration of each session in minutes. Defaults to 30 minutes.
+
+    Returns:
+        list[dict]: Entries to be inserted into ephys.EphysSession and ephys.EphysSessionProbe tables.
+
+    Example:
+        >>> from workflow.pipeline import culture
+        >>> key = (culture.Experiment & "organoid_id='O13'").fetch("KEY")[0]
+        >>> session_list = create_sessions(key, duration_in_minutes=30)
+        >>> ephys.EphysSession.insert(session_list, ignore_extra_fields=True)
+        >>> ephys.EphysSessionProbe.insert(
+            [session_info.pop("session_probe") | session_info for session_info in session_list],
+            ignore_extra_fields=True,
+        )
+    """
+    from workflow.pipeline import culture
+
+    exp_key = (culture.Experiment & experiment_key).proj("experiment_end_time").fetch1()
+
+    # Load ephys_experiment.yml
+    experiment_yml = Path(get_repo_dir()) / "data/ephys_experiment.yml"
+    with open(experiment_yml, "r") as f:
+        experiment_list: list[dict] = yaml.safe_load(f)
+
+    try:
+        exp_info = next(
+            exp
+            for exp in experiment_list
+            if (exp["organoid_id"] == exp_key["organoid_id"])
+            and (exp["start_time"] == str(exp_key["experiment_start_time"]))
+        )
+    except StopIteration:
+        raise Exception("Experiment info not found from experiment.yml")
+
+    session_list: list[dict[str, Any]] = []
+    session_end = None
+
+    # Create sessions within the experiment duration
+    while True:
+        session_start = session_end or exp_key["experiment_start_time"]
+
+        if session_start >= exp_key["experiment_end_time"]:
+            break
+
+        session_end = min(
+            session_start + datetime.timedelta(minutes=duration_in_minutes),
+            exp_key["experiment_end_time"],
+        )
+
+        session_info = exp_info.copy()
+        session_info["start_time"] = session_start
+        session_info["end_time"] = session_end
+        session_info["session_type"] = "spike_sorting"
+        session_info["duration"] = (session_end - session_start).total_seconds() / 60
+
+        session_list.append(session_info)
+
+    return session_list
