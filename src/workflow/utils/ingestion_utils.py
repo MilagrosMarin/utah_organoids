@@ -272,7 +272,8 @@ def create_sessions(
     assert session_type in [
         "spike_sorting",
         "lfp",
-    ], "session_type must be either'spike_sorting' or 'lfp'."
+        "both",
+    ], "session_type must be either'spike_sorting', 'lfp', 'both'."
 
     exp_key = (culture.Experiment & experiment_key).proj("experiment_end_time").fetch1()
 
