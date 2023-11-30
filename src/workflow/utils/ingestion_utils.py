@@ -18,7 +18,7 @@ from workflow.utils.paths import get_raw_root_data_dir, get_repo_dir
 El2ROW = [20, 5, 19, 6, 18, 7, 32, 9, 31, 10, 30, 11, 21, 4, 22, 3, 23, 2, 25, 16, 26, 15, 27, 14, 28, 13, 24, 1, 29, 12, 17, 8]  # array of row number for each electrode obtained from el2row.m
 # fmt: on
 
-electrode_to_row = np.array(El2ROW) - 1  # 0-based indexing
+El2ROW = np.array(El2ROW) - 1  # 0-based indexing
 
 
 def get_channel_to_electrode_map(port_id: str | None = None) -> dict[str, int]:
@@ -32,12 +32,10 @@ def get_channel_to_electrode_map(port_id: str | None = None) -> dict[str, int]:
     """
     if port_id in ["A", "B", "C", "D"]:
         channel_to_electrode_map = {
-            f"{port_id}-{value:03}": key for key, value in enumerate(electrode_to_row)
+            f"{port_id}-{value:03}": key for key, value in enumerate(El2ROW)
         }
     elif port_id is None:
-        channel_to_electrode_map = {
-            str(value): key for key, value in enumerate(electrode_to_row)
-        }
+        channel_to_electrode_map = {str(value): key for key, value in enumerate(El2ROW)}
     else:
         raise ValueError(f"Invalid port_id: {port_id}")
 
@@ -243,3 +241,79 @@ def ingest_ephys_session() -> None:
         skip_duplicates=True,
         ignore_extra_fields=True,
     )
+
+
+def create_sessions(
+    experiment_key: dict[str, Any], session_type=str, duration_in_minutes: int = 30
+) -> list[dict]:
+    """Creates a list of session dictionaries for a given experiment.
+
+    Args:
+        experiment_key (dict[str, Any]): A key fetched from culture.Experiment.
+        duration_in_minutes (int, optional): The duration of each session in minutes. Defaults to 30 minutes.
+
+    Returns:
+        list[dict]: Entries to be inserted into ephys.EphysSession and ephys.EphysSessionProbe tables.
+
+    Example:
+        >>> from workflow.pipeline import culture
+        >>> key = (culture.Experiment & "organoid_id='O13'").fetch("KEY")[0]
+        >>> session_list = create_sessions(key, session_type="spike_sorting", duration_in_minutes=30)
+        >>> ephys.EphysSession.insert(session_list, ignore_extra_fields=True)
+        >>> ephys.EphysSessionProbe.insert(
+            [session_info.pop("session_probe") | session_info for session_info in session_list],
+            ignore_extra_fields=True,
+        )
+    """
+    import datetime
+
+    from workflow.pipeline import culture
+
+    assert session_type in [
+        "spike_sorting",
+        "lfp",
+        "both",
+    ], "session_type must be either'spike_sorting', 'lfp', 'both'."
+
+    exp_key = (culture.Experiment & experiment_key).proj("experiment_end_time").fetch1()
+
+    # Load ephys_experiment.yml
+    session_yml = Path(get_repo_dir()) / "data/ephys_session.yml"
+    with open(session_yml, "r") as f:
+        experiment_list: list[dict] = yaml.safe_load(f)
+
+    try:
+        exp_info = next(
+            exp
+            for exp in experiment_list
+            if (exp["organoid_id"] == exp_key["organoid_id"])
+            and (exp["start_time"] == str(exp_key["experiment_start_time"]))
+        )
+    except StopIteration:
+        raise Exception("Experiment info not found from experiment.yml")
+
+    session_list: list[dict[str, Any]] = []
+    session_end = None
+
+    # Create sessions within the experiment duration
+    while True:
+        session_start = session_end or exp_key["experiment_start_time"]
+
+        if session_start >= exp_key["experiment_end_time"]:
+            break
+
+        session_end = min(
+            session_start + datetime.timedelta(minutes=duration_in_minutes),
+            exp_key["experiment_end_time"],
+        )
+
+        exp_info["experiment_start_time"] = exp_info["start_time"]
+        session_info = exp_info.copy()
+        session_info["start_time"] = session_start
+        session_info["end_time"] = session_end
+        session_info["session_type"] = session_type
+        session_info["duration"] = (session_end - session_start).total_seconds() / 60
+
+        session_list.append(session_info)
+
+    return session_list

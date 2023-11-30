@@ -1,5 +1,5 @@
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 import datajoint as dj
@@ -20,14 +20,12 @@ class FileProcessing(dj.Imported):
     -> FileManifest
     ---
     execution_time: datetime  # UTC time
-    log_message='': varchar(1000)
     """
 
     def make(self, key):
         """
-        For each new file in FileManifest, process the file to attempt to register new entries for ephys.EphysRawFile (from .rhs files)
+        For each new file in FileManifest, process the file to attempt to register new entries for ephys.EphysRawFile.
         """
-        log_message = ""
         remote_fullpath = Path(key["remote_fullpath"])
         if Path(REL_PATH_INBOX) in remote_fullpath.parents:
             parent_dir = remote_fullpath.parent
@@ -40,17 +38,15 @@ class FileProcessing(dj.Imported):
                 )  # start time based on the file name
                 ephys.EphysRawFile.insert1(
                     {
-                        "file_path": remote_fullpath.as_posix(),
+                        "file_path": remote_fullpath.relative_to(
+                            REL_PATH_INBOX
+                        ).as_posix(),
                         "acq_software": {".rhd": "Intan", ".rhs": "Intan"}[
                             remote_fullpath.suffix
                         ],
                         "file_time": start_time,
                         "parent_folder": parent_dir.name,
                         "filename_prefix": filename_prefix,
-                        "file": (FileManifest & key).fetch1("file"),
                     }
                 )
-                log_message += f"Added new raw ephys: {remote_fullpath.name}" + "\n"
-        self.insert1(
-            {**key, "execution_time": datetime.utcnow(), "log_message": log_message}
-        )
+        self.insert1({**key, "execution_time": datetime.utcnow()})
