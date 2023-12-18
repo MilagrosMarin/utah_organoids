@@ -57,4 +57,4 @@ services:
         mkdir -p /home/${CONTAINER_USER}/s3/inbox
         s3fs ${BUCKET_NAME}:/${REPO_NAME}/inbox /home/${CONTAINER_USER}/s3/inbox \
           -o createbucket,multipart_size=530,endpoint=us-east-2,default_acl=private,url=http://s3-accelerate.amazonaws.com 
-        run_workflow standard_worker
+        run_workflow spike_sorting_local_worker
