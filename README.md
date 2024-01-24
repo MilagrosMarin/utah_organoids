@@ -46,10 +46,13 @@ Get started with the Utah Organoids project by following these steps:
     ```bash
     pip install -e .
     ```
-1. To generate the `dj_local_config.json` file, execute the command below. Input your username and password when prompted:
+1. To create the `dj_local_conf.json` file, execute the command below. Input your username and password when prompted:
     ```bash
     chmod +x ./create_dj_config.sh && ./create_dj_config.sh
     ```
+1. Insert the AWS functional user credentials to fetch data from the s3 bucket to the notebook:
+    + By inserting the credentials in the `dj_local_conf.json` file
+    + By creating a `.env` file containing these credentials as environment variables
 
 
 ## Uploading Raw Data
