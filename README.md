@@ -19,14 +19,15 @@ Data viewer for the Organoids DataJoint pipeline. Please use the entry forms pro
 
 https://organoids.datajoint.com/
 
-## DataJoint Codebook (JupyterHub)
+## DataJoint Codebook for Organoids (JupyterHub)
 
 *Online coding environment*
 
-https://sciops-codebook.datajoint.com/hub/spawn
+https://sciops-codebook.datajoint.com/
 
 + Use your DataJoint Works credentials.
 + Select the "Utah - Organoids" server, then press "Start".
++ Please make sure to halt the server and log out if you access the codebook on a different day: `File/Hub Control Panel/ Stop My Server` and `Logout`.
 
 ## Initial Configuration Instructions
 
