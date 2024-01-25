@@ -273,7 +273,7 @@ def create_sessions(
         "spike_sorting",
         "lfp",
         "both",
-    ], "session_type must be either'spike_sorting', 'lfp', 'both'."
+    ], "session_type must be either 'spike_sorting', 'lfp', 'both'."
 
     exp_key = (culture.Experiment & experiment_key).proj("experiment_end_time").fetch1()
 
@@ -317,3 +317,41 @@ def create_sessions(
         session_list.append(session_info)
 
     return session_list
+
+
+if __name__ == "__main__":
+    from workflow.pipeline import ephys
+
+    experiment_key = dict(
+        organoid_id="O13",
+        experiment_start_time="2023-06-08 19:05:00",
+    )
+
+    # fmt: off
+    session_info = dict(
+        organoid_id="O13",
+        experiment_start_time="2023-06-08 19:05:00",
+        insertion_number=0,
+        start_time="2023-06-08 19:10:00",
+        end_time="2023-06-09 19:15:00",
+        session_type="lfp",  # "lfp" or "spike_sorting"
+        probe="Q983",  # probe serial number
+        port_id="A",  # Port ID ("A", "B", etc.)
+        used_electrodes=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],  # electrodes used for the session
+    )
+    # fmt: on
+    # Insert the session
+    session_list = create_sessions(
+        experiment_key, session_type="both", duration_in_minutes=15
+    )
+    ephys.EphysSession.insert(
+        session_list, ignore_extra_fields=True, skip_duplicates=True
+    )
+    ephys.EphysSessionProbe.insert(
+        [
+            session_info.pop("session_probe") | session_info
+            for session_info in session_list
+        ],
+        ignore_extra_fields=True,
+        skip_duplicates=True,
+    )
