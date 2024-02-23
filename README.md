@@ -15,19 +15,31 @@ DataJoint workflow for the Organoids project at the University of Utah.
 <img src=./images/datajoint_diagram_ephys_session.svg>
 
 ## SciViz website
-Data viewer for the Organoids DataJoint pipeline. Please use the entry forms provided on the website to manually input relevant data entries.
+Data viewer for the Utah Organoids DataJoint pipeline. Please use the entry forms provided on the website to manually input relevant data entries.
 
 https://organoids.datajoint.com/
 
+#### Testing the Data Viewer Locally
+1. After making the code changes locally, run the following command to start the application:
+```
+docker compose -f webapps/sciviz/docker-compose.yaml up
+```
+1. Access the application using the following URL: https://localhost/login and log in with your DataJoint Works credentials.
+1. When you have finished testing, please ensure to stop and remove the Docker container by running the following command:
+```
+docker compose -f webapps/sciviz/docker-compose.yaml down
+```
+
+
 ## DataJoint Codebook for Organoids (JupyterHub)
 
-*Online coding environment*
+Online coding environment:
 
-https://sciops-codebook.datajoint.com/
+http://sciops-codebook.datajoint.com/
 
-+ Use your DataJoint Works credentials.
-+ Select the "Utah - Organoids" server, then press "Start".
-+ Please make sure to halt the server and log out if you access the codebook on a different day: `File/Hub Control Panel/ Stop My Server` and `Logout`.
++ Use your DataJoint Works credentials
++ Select the "Utah - Organoids" server, then press "Start"
++ Please, make sure to halt the server and log out if you access the codebook on a different day: `File/Hub Control Panel/ Stop My Server` and `Logout`
 
 ## Initial Configuration Instructions
 
