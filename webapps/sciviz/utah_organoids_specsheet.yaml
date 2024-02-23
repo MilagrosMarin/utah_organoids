@@ -148,9 +148,6 @@ SciViz: # top level tab
                 - utah_organoids_culture.StemCell
               map:
                 - type: table
-                  input: Lineage ID
-                  destination: utah_organoids_lineage.Lineage
-                - type: table
                   input: Induction Culture
                   destination: utah_organoids_culture.InductionCulture
                 - type: table
@@ -159,7 +156,7 @@ SciViz: # top level tab
               booleans:
                 - media_change
                 - discontinued
-                - genomic_dna
+                - genomic_dna                
     Induction:
       route: /induction
       grids:
