@@ -63,7 +63,7 @@ params["SI_SORTING_PARAMS"] = {
     "job_kwargs": {"n_jobs": -1},
 }
 
-params["SI_PREPROCESSING_METHOD"] = "organoid"
+params["SI_PREPROCESSING_METHOD"] = "organoid_preprocessing"
 params["SI_WAVEFORM_EXTRACTION_PARAMS"] = {
     "ms_before": 1.0,
     "ms_after": 2.0,
