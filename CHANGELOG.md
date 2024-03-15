@@ -1,5 +1,33 @@
 # Changelog
 
+## `v0.8.0`
+
+
+### Features
+
+* :sparkles: add create_spike_sorting_session.ipynb ([5f3331e](https://github.com/dj-sciops/utah_organoids/commit/5f3331e0c4e6da584e930f8e2388a63d41ed76d7))
+
+
+### Bug Fixes
+
+* :bug: change preprocessing to organoid_preprocessing ([3cfc915](https://github.com/dj-sciops/utah_organoids/commit/3cfc9156540d10ee45b0501e7066e4c01a10dc05))
+* :bug: get organoid exp directory ([e5636f7](https://github.com/dj-sciops/utah_organoids/commit/e5636f71ba06777787643ab9315bfdfb2407d480))
+
+
+### Continuous Integration
+
+* :construction_worker: configure spike_sorting_worker ([a1e2b3f](https://github.com/dj-sciops/utah_organoids/commit/a1e2b3f3f8328b088a1188a62c7ab7c414ff0a22))
+
+
+### Build Systems
+
+* :construction_worker: add spike_sorting_worker to worker.py ([fca4df0](https://github.com/dj-sciops/utah_organoids/commit/fca4df0e19d82e7ceed636ed8f49322406ecef8a))
+* :construction_worker: update apt_requirements.txt ([290b683](https://github.com/dj-sciops/utah_organoids/commit/290b683acc88b4ea9f31bdf45d2bed66e03593d1))
+* :construction_worker: update spike_sorting docker ([aac8a8a](https://github.com/dj-sciops/utah_organoids/commit/aac8a8add3ef2ebe4806a4fce74de9bbbd3f56cb))
+* :construction_worker: update spike_sorting worker docker ([db1a5b8](https://github.com/dj-sciops/utah_organoids/commit/db1a5b867ee7aecfc9f15a3fa583dfd12baa8f2a))
+* :construction_worker: update standard worker docker ([f1cfa37](https://github.com/dj-sciops/utah_organoids/commit/f1cfa377c417d8f1ad613fd0864e1010a10ac85f))
+
+
 ## `v0.7.0`
 
 
