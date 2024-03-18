@@ -37,8 +37,9 @@ dependencies = [
     "ipython",
     "ipywidgets",
     "plotly",
-    "spikeinterface[full]",
+    "spikeinterface[full]==0.100.1",
     "probeinterface",
+    "hdbscan ",
 ]
 
 [project.optional-dependencies]
