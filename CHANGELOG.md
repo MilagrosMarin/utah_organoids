@@ -1,5 +1,13 @@
 # Changelog
 
+## `v0.9.2`
+
+
+### Bug Fixes
+
+* **session_upload:** allow using client_secret ([fc94351](https://github.com/dj-sciops/utah_organoids/commit/fc943510d5859c9cd6be549920376a3716399529))
+
+
 ## `v0.9.1`
 
 
