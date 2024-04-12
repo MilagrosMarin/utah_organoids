@@ -123,10 +123,12 @@ def download_directory(relative_dir: str, dir_type: str = "outbox"):
     else:
         raise ValueError(f"Invalid dir_type: {dir_type}")
 
+    source = Path(DB_PREFIX[:-1]) / dir_type / relative_dir
+
     dj_axon.download_files(
         session=s3_session,
         s3_bucket=s3_bucket,
-        source=f"{DB_PREFIX[:-1]}/{dir_type}/{relative_dir}/",
+        source=f"{source}/",
         destination=f'{local_dir}{os.sep}',
     )
     return local_dir
