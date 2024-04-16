@@ -1,5 +1,13 @@
 # Changelog
 
+## `v0.12.1`
+
+
+### Bug Fixes
+
+* **download:** minor path fix ([e293890](https://github.com/dj-sciops/utah_organoids/commit/e2938904f842debcf1c3a06e5f372e4d47eb32c2))
+
+
 ## `v0.12.0`
 
 
