@@ -108,8 +108,11 @@ def download_directory(relative_dir: str, dir_type: str = "outbox"):
     import djsciops.axon as dj_axon
 
     if (
-            not relative_dir
-            and dj.utils.user_choice(f"Are you sure you want to download the entire '{dir_type}' directory?") != "yes"
+        not relative_dir
+        and dj.utils.user_choice(
+            f"Are you sure you want to download the entire '{dir_type}' directory?"
+        )
+        != "yes"
     ):
         print("Canceled download.")
         return
@@ -121,7 +124,9 @@ def download_directory(relative_dir: str, dir_type: str = "outbox"):
     elif dir_type == "outbox":
         local_dir = get_processed_root_data_dir() / relative_dir
     else:
-        logger.info(f"Unknown dir_type: {dir_type} - defaulting to 'processed' directory. ")
+        logger.info(
+            f"Unknown dir_type: {dir_type} - defaulting to 'processed' directory. "
+        )
         local_dir = get_processed_root_data_dir() / dir_type / relative_dir
 
     source = Path(DB_PREFIX[:-1]) / dir_type / relative_dir
