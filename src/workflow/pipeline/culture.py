@@ -61,7 +61,7 @@ class InductionCultureCondition(dj.Manual):
     -> [nullable] User
     density=null: int unsigned # Units of percentage
     quality='': varchar(32) # e.g. cell detach, cell death, color change, morphology change
-    supplement=null: enum('','DMSO 0.1%','Dorsomorphin 10ng/mL + SB431542 4ng/mL', 'Dorsomorphin 10ng/mL', 'SB431542 4ng/mL') # Supplement, concentration, and units
+    supplement=null: enum('','DMSO 0.1"%"','Dorsomorphin 10ng/mL + SB431542 4ng/mL', 'Dorsomorphin 10ng/mL', 'SB431542 4ng/mL') # Supplement, concentration, and units
     media=null: enum('','E6','N2B27')
     media_percent_changed=null: int unsigned # Percent of the media changed, 1-100
     substrate=null: enum('','matrigel')
