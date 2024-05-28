@@ -1,5 +1,18 @@
 # Changelog
 
+## `v0.13.0`
+
+
+### Features
+
+* newer version of element-array-ephys (with spikeinterface v0.101+) ([382d7ec](https://github.com/dj-sciops/utah_organoids/commit/382d7ec20e24ecf32f1c6b0196e6c9113a89f2cc))
+
+
+### Code Refactoring
+
+* unpack elements in DB_PREFIX split ([feb51d4](https://github.com/dj-sciops/utah_organoids/commit/feb51d43ef2c3f8b8e22311b32c243f3e63068c5))
+
+
 ## `v0.12.1`
 
 
