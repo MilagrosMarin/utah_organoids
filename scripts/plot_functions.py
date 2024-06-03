@@ -298,10 +298,7 @@ class data:
         for param in order: # loops through parameters determined by order
 
             # if it's the last grouping parameter, convert keys --> data
-            if param == order[-1]:
-                convert = True
-            else:
-                convert = False
+            convert = param == order[-1]
 
             # Create grouped data (nested dictionary) based on order (get_nest_dict is a far more complicated function)
             grouped_data = get_nest_dict(data=data , nest_dict=grouped_data , param=param , convert=convert)
