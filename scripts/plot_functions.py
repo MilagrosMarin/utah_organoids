@@ -84,7 +84,7 @@ def get_nest_dict(data , nest_dict , param , convert=False): # Make a nested dic
     if not nest_dict: # Create new dictionary based on param
 
         # Get and Split Key Data
-        keys = np.array(list(data.keys()))
+        keys = np.array(list(data))
 
         # Split data and get unique values for relative parameter
         split_keys = np.array([key.split('/') for key in keys])
