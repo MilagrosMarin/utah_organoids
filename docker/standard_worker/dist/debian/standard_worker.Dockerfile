@@ -15,7 +15,6 @@ CMD /usr/local/bin/bootstrap-kernel.sh
 # Additional packages
 RUN apt install g++ -y
 
-
 USER jovyan
 ARG DEPLOY_KEY
 COPY --chown=jovyan $DEPLOY_KEY $HOME/.ssh/id_ed25519
