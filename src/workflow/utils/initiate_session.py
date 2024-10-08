@@ -11,9 +11,8 @@ s3_session, s3_bucket = None, None
 
 """INSTRUCTIONS TO RUN THIS CODE
 1. Install djsciops package: “pip install djsciops”
-2. Run “djsciops config” on the terminal to get the path of config.yaml.
-3. Make sure that config.yaml have the correct values for account_id, client_id, issuer, bucket, and role.
-4. Make sure there is a local_outbox in the config.yaml.
+2. Run “djsciops config” on the terminal to get the path of `config.yaml`.
+3. Make sure that `config.yaml` have the correct values for account_id, client_id, issuer, bucket, and role.
 """
 
 
@@ -41,11 +40,6 @@ def upload_session_data(session_dir_relpath):
 
     Args:
         session_dir_relpath (str): Relative session path
-
-    Example:
-        If the data is located at "/Users/tolgadincer/DJRepos/utah_organoids/O6/..",
-        where LOCAL_OUTBOX="/Users/tolgadincer/DJRepos/utah_organoids/", then run:
-        >>> upload_session_data('O6')
     """
     import djsciops.axon as dj_axon
 
