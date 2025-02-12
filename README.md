@@ -63,16 +63,3 @@ Data viewer for the Utah Organoids DataJoint pipeline. Please use the entry form
 - For work utilizing DataJoint Python and/or Elements, cite the respective manuscripts and RRIDs. For details, visit [here](https://datajoint.com/docs/about/citation/).
 
 DataJoint promotes integration and interoperability across neuroscience ecosystems, encouraging transparency and collaboration in research.
-
-## Additional Resources
-
-- [Official documentation for DataJoint](https://datajoint.com/docs/)
-- [Interactive tutorials written in Python](https://github.com/datajoint/datajoint-tutorials)
-- [Notebook for logical operators in DataJoint tables](https://github.com/datajoint-company/db-programming-with-datajoint/blob/master/notebooks/SQL%20Syntax%20for%20DataJoint%20Querying.ipynb)
-- [DataJoint Table Tiers](https://datajoint.com/docs/core/datajoint-python/0.13/reproduce/table-tiers/)
-- [DataJoint Common Commands](https://datajoint.com/docs/core/datajoint-python/0.13/query-lang/common-commands/)
-- [DataJoint Operators](https://datajoint.com/docs/core/datajoint-python/0.13/query-lang/operators/)
-- [DataJoint Populate Function](https://datajoint.com/docs/core/datajoint-python/0.14/compute/populate/)
-- [Contribute documentation](https://datajoint.com/docs/about/contribute/)
-- [Quality assurance principles in DataJoint](https://datajoint.com/docs/elements/management/quality-assurance/)
-- [DataJoint External Storage for Large Data Objects](https://datajoint.com/docs/core/datajoint-python/0.14/sysadmin/external-store/)
