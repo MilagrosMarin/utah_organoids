@@ -29,6 +29,7 @@ This document provides a step-by-step guide for accessing and using the **Utah O
         - `Experiment` page → add new experiments performed on a particular organoid
             - Include organoids ID, datetime, experimenter, condition, etc.
             - Provide the experiment data directory — the relative path to where the acquired data is stored.
+
 *Note*: The "Table" sections in each tab display the data entries in a tabular format. These sections are not clickable. If you click on them, the website may turn white, requiring you to log back in.
 
 ## Standard Operating Procedure for the Array Ephys Pipeline
