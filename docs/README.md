@@ -53,3 +53,7 @@ What are you aiming to achieve with the pipeline?
   1. [Run the Workflow Computations Locally](RUN_LOCALLY_GUIDE.md).
   2. May contribute to the pipeline codebase and project documentation.
   3. Refer to the [Troubleshooting guide](TROUBLESHOOTING.md) for assistance if needed.
+
+
+## Standard Operating Procedure for Utah Organoids DataJoint pipeline
+You can find the standard operating procedures for the Utah Organoids DataJoint pipeline [here](PROCEDURE.md). Please refer to this document for detailed instructions on how to use the pipeline.

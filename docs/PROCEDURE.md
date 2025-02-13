@@ -110,3 +110,7 @@ This document provides a step-by-step guide to accessing and using the **Utah Or
         - Select the kernel for the notebook by clicking on the kernel name `utah_organoids` in the top right corner of the notebook.
         - Click on the "Run Cell" button in the top right corner of each code cell to execute the code.
         - Follow the instructions in the notebook to download results.
+
+
+## Troubleshooting
+For assistance, refer to the [Troubleshooting Guide](TROUBLESHOOTING.md), which provides solutions to common issues encountered during pipeline setup and execution. If you need further help, feel free to contact the DataJoint SciOps team.
