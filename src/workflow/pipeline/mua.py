@@ -167,7 +167,7 @@ class SpikeThresholdAnalysis(dj.Computed):
 
         # Preprocess the recording
         si_recording = si.preprocessing.bandpass_filter(
-            recording=si_recording, freq_min=300, freq_max=4500
+            recording=si_recording, freq_min=300, freq_max=6000
         )
         si_recording = si.preprocessing.common_reference(
             recording=si_recording, operator="median"
