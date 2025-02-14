@@ -36,8 +36,7 @@ This document provides a step-by-step guide to accessing and using the **Utah Or
             - Include organoid ID, datetime, experimenter, condition, etc.
             - Provide the experiment data directory — the relative path to where the acquired data is stored.
 
-**Note**: The "Table" sections in each tab display existing data entries in a tabular format but are not interactive. Clicking on them may cause the website to become unresponsive (white screen), requiring to refresh and re-login.
-
+**Note**: Clicking on read-only tables may cause the page to become unresponsive (white screen). This is a known issue currently being fixed. For now, please refresh and re-login.
 ## Standard Operating Procedure for the Array Ephys Pipeline
 
 3. Ensure that the data has already been uploaded to the cloud before proceeding. 
