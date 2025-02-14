@@ -41,8 +41,8 @@ This document provides a step-by-step guide to accessing and using the **Utah Or
 
 3. Follow these [instructions](#upload-data-from-your-local-machine-to-the-cloud) to upload the acquired data before proceeding.
 4. Select an organoid experiment and define a time-window for ephys analysis (referred to as `EphysSession` in the pipeline)
-    1. Log in to [works.datajoint.com](works.datajoint.com) → Navigate to `Notebook` tab
-    2. Open [the CREATE_new_session.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session.ipynb) notebook to create a new `EphysSession`.
+    1. Log into [works.datajoint.com](works.datajoint.com)  and navigate to the `Notebook` tab
+    2. Create a new `EphysSession` by editing and executing [CREATE_new_session.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session.ipynb) .
     3. Follow the instructions in the notebook:
         - For LFP analysis, set the `session_type` as `lfp` (details are provided in the notebook). This triggers automatic analysis.
         - For spike sorting analysis, set the `session_type` as `spike_sorting`, and create a `EphysSessionProbe` to store probe information, including the channel mapping (details are provided in the notebook). The `EphysSession` and `EphysSessionProbe` will trigger probe insertion detection automatically. For spike sorting, you will need to manually select the spike sorting algorithm and parameter set to run (see the next step).
