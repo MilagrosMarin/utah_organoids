@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides a step-by-step guide to accessing and using the **Utah Organoids DataJoint pipeline**, which supports data management and analysis for the Utah lab. The pipeline focuses on **cerebral organoids characterization** and **electrophysiology (ephys) data analysis**.
+This document provides a step-by-step guide to accessing and using the **Utah Organoids DataJoint pipeline**. The pipeline supports **cerebral organoids characterization** and **electrophysiology (ephys) data analysis**.
 
 ### Pipeline Components
 
