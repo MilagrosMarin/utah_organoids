@@ -46,7 +46,7 @@ What are you aiming to achieve with the pipeline?
 - _Steps_:
   1. Request access to a DataJoint account:
      1. Send an email to support@datajoint.com requesting a new account.
-     2. Once approved, you will receive your DataJoint credentials (username and password) granting access to:
+     2. Once approved, you will receive your DataJoint credentials (username and password) to access:
      - DataJoint platform
      - Organoids SciViz website
      - Local database connections  
