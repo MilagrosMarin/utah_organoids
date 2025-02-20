@@ -260,6 +260,8 @@ class MUATracePlot(dj.Computed):
             )
             spk_ind = chn_data["spike_indices"]
 
+            title_ = title + f" | ChnID: {ch_id}"
+            # waveform plot
             # compute average waveform - 2ms before and after the spike
             pad_len = int(2e-3 * fs)
             wfs = []
@@ -268,7 +270,6 @@ class MUATracePlot(dj.Computed):
                     wfs.append(trace[idx - pad_len : idx + pad_len])
             mean_wf = np.mean(np.vstack(wfs), axis=0)
 
-            title_ = title + f" | ChnID: {ch_id}"
             wf_fig = _plot_mean_waveform(mean_wf, fs, title_)
 
             # format a string into a filename compatible string
@@ -284,7 +285,7 @@ class MUATracePlot(dj.Computed):
                 {
                     **key,
                     "channel_idx": chn_data["channel_idx"],
-                    "trace_plot": json.loads(trace_fig.to_json()),
+                    "trace_plot": trace_fig.to_json(),
                     "mean_waveform": mean_wf,
                     "waveform_plot": filepath,
                 }
