@@ -1,27 +1,19 @@
-# Running the Workflow Computations Locally
+# Running the Pipeline Locally
 
-## Configuration Instructions
+## Setup
 
-1. [Installation of the Pipeline Codebase](INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase): Install the necessary components of the pipeline codebase.
-2. [Configuration Instructions](INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#configuration-instructions): Configure your environment to connect to the DataJoint database.
-
+1. Follow [`INSTALLATION_AND_CONFIGURATION.md`](INSTALLATION_AND_CONFIGURATION.md) to install dependencies and pipeline codebase, and configure your environment to connect to the database.
    - Ensure that the `raw_root_data_dir` and `processed_root_data_dir` in the `dj_local_conf.json` file are set to the local directories on your machine where the data will be stored and processed.
 
-3. **Organize Data According to Lab's Hierarchy**: Ensure your data adheres to the [Lab's Consensus Hierarchy of Folders](DATA_ORGANIZATION.md). Proper data organization is essential for the pipeline to process data accurately.
+2. Organize data using the [`DATA_ORGANIZATION.md`](../configuration/DATA_ORGANIZATION.md) structure.
 
-4. **Create a New Session**: Start by inserting a new session into the pipeline.
+3. Create a new session using: [CREATE_new_session.ipynb](../notebooks/CREATE_new_session.ipynb).
 
-   - Detailed instructions are available in [CREATE_new_session.ipynb](../notebooks/CREATE_new_session.ipynb).
-   - Certain processing tasks for specific modalities require manual specification by the user. Further details are available in the designated `CREATE` notebooks.
+## Execute Computations
 
-5. **Execution**: Use the `populate` function in DataJoint to process and compute data for specific tables:
+1. Run `populate` function in DataJoint designated `RUN` notebooks to manually trigger the pipeline's processing steps locally.
+2. Use `CREATE`, `RUN`, and `EXPLORE` notebooks to interact with the pipeline.
 
-   - To execute computations locally, use the `populate` function of DataJoint within the designated `RUN` notebooks. These notebooks contain instructions to manually trigger the pipeline's processing steps.
+## Debugging
 
-6. **Explore the Results**: After processing and analysis, results are stored in the corresponding tables and schemas:
-   - Explore and fetch results from the pipeline using the designated `EXPLORE` notebooks.
-
-## Before Running a Notebook
-
-- Set the Jupyter Server kernel to match the Conda environment created specifically for this project.
-- Confirm the `dj_local_conf.json` configuration file is present and correctly configured.
+- If issues arise, check the [`TROUBLESHOOTING.md`](../troubleshooting/TROUBLESHOOTING.md) guide.

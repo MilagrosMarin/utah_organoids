@@ -1,15 +1,17 @@
-# Testing the Data Viewer Locally
+# Local Testing for SciViz
 
-1. After making the code changes locally, run the following command to start the application:
+## Steps
 
-```
+1. Start SciViz with:
+
+```bash
 docker compose -f webapps/sciviz/docker-compose.yaml up -d
 ```
 
-2. Access the application using the following URL in an incognito window: <https://localhost/login> and log in with your DataJoint Works credentials.
+2. Open <https://localhost/login> and log in.
 
-3. When you have finished testing, please ensure to stop and remove the Docker container by running the following command:
+3. Shut down when done:
 
-```
+```bash
 docker compose -f webapps/sciviz/docker-compose.yaml down
 ```

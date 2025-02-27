@@ -1,15 +1,12 @@
-# Troubleshooting
+# Troubleshooting Guide
 
-## Debugging
+## Debugging `populate` Function
 
-Debugging `populate` function: If you encounter issues with the `populate` function in your DataJoint pipeline, refer to the [RUN_debug notebooks](../notebooks/RUN_debug_spike_sorting.ipynb). This resource provides useful insights for troubleshooting and resolving common problems during data population.
+- Run [RUN_debug notebooks](../notebooks/RUN_debug_spike_sorting.ipynb) with an example of error message and how to fix it with a step-by-step guidance.
 
-## Local Installation Troubleshooting
-
-If you encounter errors during [Running the Workflow Computations Locally](RUN_LOCALLY_GUIDE.md), follow these steps:
+## Common Installation Errors
 
 - `ERROR: Could not build wheels for datajoint`
-
   - Install datajoint using the following command:
 
     ```bash
@@ -49,3 +46,7 @@ If you encounter errors during [Running the Workflow Computations Locally](RUN_L
 - Ensure you have correctly installed and activated the `utah_organoids` conda environment before pip installing the cloned repository.
   - Errors such as: `ModuleNotFoundError: No module named 'datajoint'`
     might indicate that the pip installation did not occur within the activated conda environment. Be sure to activate the environment correctly and reinstall the repository if needed.
+
+- To run computations locally, please ensure to:
+  - Set the Jupyter Server kernel to match the Conda environment created specifically for this project.
+  - Confirm the `dj_local_conf.json` configuration file is present and correctly configured.
