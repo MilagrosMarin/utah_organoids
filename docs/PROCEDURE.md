@@ -1,108 +1,106 @@
-# Standard Operating Procedure (SOP) for Utah Organoids DataJoint Pipeline
+# Standard Operating Procedure (SOP) for Utah Organoids DataJoint Pipelines
 
 ## Overview
 
-The **Utah Organoids DataJoint pipeline** supports **cerebral organoid characterization** and **electrophysiology (ephys) data analysis**. This guide provides step-by-step instructions for accessing and using the pipeline.
+The **Utah Organoids DataJoint pipeline** facilitates **cerebral organoid characterization** and **electrophysiology (ephys) data analysis**. This guide provides step-by-step instructions for accessing and using the pipeline.
 
 ### Pipeline Components
 
-- **Organoid Generation Pipeline**: Manages metadata for organoid generation protocols, tracking the process from induced pluripotent stem cells (iPSCs) to single neural rosettes (SNRs), and mature organoids.
+- **Organoid Generation Pipeline**: Manages metadata for organoid generation protocols, tracking the process from induced pluripotent stem cells (iPSCs) to single neural rosettes (SNRs) to mature organoids.
 
-- **Array Ephys Pipeline**: Handles ephys data analysis, managing metadata and raw data related to probes and ephys recordings. It also includes preprocessing, spike sorting, curation, and quality metrics computations.
+- **Array Ephys Pipeline**: Handles ephys data analysis, managing metadata and raw data related to probes and ephys recordings. It also includes preprocessing, spike sorting, and quality metrics computations.
 
-## Accessing the Utah Organoids DataJoint Pipeline
+## Access
 
-1. **Request Access**: Contact DataJoint support team for an account.
+1. **Request Access**: Contact the DataJoint support team for an account.
 2. **Log in**: Use DataJoint credentials to access:
-     - works.datajoint.com (data processing)
+     - works.datajoint.com
      - Organoids SciViz (metadata entry)
      - Database connections
 
-## Organoid Generation Pipeline 
-3. **Metadata Entry**: 
+## Organoid Generation Pipeline
+
+3. **Metadata Entry**:
     1. Log into [Organoids SciViz](https://organoids.datajoint.com/) with your DataJoint credentials (username and password).
-    2. Use the "Form" sections in each tab to enter data:
+    2. Enter data in the corresponding sections:
         - `User` page → if you are a new experimenter, register a new experimenter.
         - `Lineage` page → create new “Lineage” and “Sequence” and submit.
-        - `Stem Cell` page → create new “Stem Cell”
+        - `Stem Cell` page → register new “Stem Cell” data.
         - `Induction` page → add new “Induction Culture” and “Induction Culture Condition”
         - `Post Induction` page → add new “Post Induction Culture” and “Post Induction Culture Condition”
         - `Isolated Rosette` page → add new “Isolated Rosette Culture” and “Isolated Rosette Culture Condition”
         - `Organoid` page → add new “Organoid Culture” and “Organoid Culture Condition”
         - `Experiment` page → log new experiments performed on a particular organoid
             - Include metadata: organoid ID, datetime, experimenter, condition, etc.
-            - Provide the experiment data directory — the relative path to where the acquired data is stored. 
+            - Provide the experiment data directory — the relative path to where the acquired data is stored.
 
 ## Array Ephys Pipeline
 
-4. **Upload Data from Local Machine to the Cloud**:
-    1. Ensure data follows the [file structure guidelines](https://github.com/dj-sciops/utah_organoids/blob/main/docs/DATA_ORGANIZATION.md). 
+4. **Upload Data to the Cloud**:
+    1. Ensure data follows the [file structure guidelines](https://github.com/dj-sciops/utah_organoids/blob/main/docs/DATA_ORGANIZATION.md).
     2. Request Axon credentials from the DataJoint support team.
-    3. Set up configuration on your local machine (if you haven't already):
+    3. Set up your local machine (if you haven't already):
         1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase).  
-        2. Set up your local machine with the axon configuration ([Add cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION_INSTRUCTIONS.md)).  
-    4. Upload data via [cloud upload notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session_with_cloud_upload.ipynb). There are several ways to execute the notebook in your local machine, here are two options:
-        1. Using the Jupyter Notebook Server. The notebook can be executed with `jupyter notebook` launched on your local machine.  
+        2. Configure axon settings ([Cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION_INSTRUCTIONS.md)).  
+    4. Upload data via the [cloud upload notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session_with_cloud_upload.ipynb) using either:
+        1. Jupyter Notebook Server:
             - Open a terminal or command prompt.
             - Activate the `utah_organoids` environment with `conda activate utah_organoids`.
             - Ensure `Jupyter` is installed in the `utah_organoids` environment. If not, install it by running `conda install jupyter`.
             - Navigate to the `utah_organoids/notebooks` directory in the terminal.
             - Run `jupyter notebook` in the terminal which will open the Jupyter notebook web interface.
             - Click on the notebook there (`CREATE_new_session_with_cloud_upload.ipynb`) and follow the instructions to upload your data to the cloud.
-            - Note: to execute each code cell sequentially, press `Shift + Enter` on your keyboard or click "Run". 
+            - Note: to execute each code cell sequentially, press `Shift + Enter` on your keyboard or click "Run".
             - Close the browser tab and stop Jupyter with `Ctrl + C` in the terminal when you are done with the upload and notebook.
-        2. Running in VS Code. The notebook can be executed in Visual Studio Code (VS Code) with the Python extension installed.
+        2. Visual Studio Code (VS Code):
             - Install VS Code and the Python extension.
-            - Open the `CREATE_new_session_with_cloud_upload.ipynb` notebook in VS Code.
             - Select the kernel for the notebook by clicking on the kernel name `utah_organoids` in the top right corner of the notebook.
+            - Open the `CREATE_new_session_with_cloud_upload.ipynb` notebook in VS Code.
             - Click on the "Run Cell" button in the top right corner of each code cell to execute the code.
             - Follow the instructions in the notebook to upload your data to the cloud.
 
 5. **Define an `EphysSession`** (i.e. a time-window for ephys analysis)
+    1. Log into [works.datajoint.com](works.datajoint.com)  and navigate to the `Notebook` tab.
+    2. Open and execute [CREATE_new_session.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session.ipynb).
+    3. Define a time window for analysis:
+        - **For LFP Analysis**: Set `session_type` to `lfp` for automatic analysis.
+        - **For Spike Sorting Analysis**: Set `session_type` to `spike_sorting`, and create an `EphysSessionProbe` to store probe information, including the channel mapping. This triggers probe insertion detection automatically. For spike sorting, you will need to manually select the spike sorting algorithm and parameter set to run in the next step.
 
-Select an organoid experiment (already added in step 3. Metadata Entry in Organoid Generation Pipeline) and define a time-window for ephys analysis (referred to as `EphysSession` in the pipeline)
-    1. Log into [works.datajoint.com](works.datajoint.com)  and navigate to the `Notebook` tab
-    2. Create a new `EphysSession` by editing and executing [CREATE_new_session.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session.ipynb) .
-    3. Follow the instructions in the notebook:
-        - For LFP analysis, set the `session_type` as `lfp` (details are provided in the notebook). This triggers automatic analysis.
-        - For spike sorting analysis, set the `session_type` as `spike_sorting`, and create a `EphysSessionProbe` to store probe information, including the channel mapping (details are provided in the notebook). The `EphysSession` and `EphysSessionProbe` will trigger probe insertion detection automatically. For spike sorting, you will need to manually select the spike sorting algorithm and parameter set to run (see the next step).
-6. **Run spike sorting analysis**
+6. **Run Spike Sorting Analysis**
     1. Manually select a spike-sorting algorithm and parameter set (this is called to create a `ClusteringTask` in the pipeline):
         - Go to [works.datajoint.com](works.datajoint.com) → `Notebook` tab
-        - Open [this notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_clustering_paramset.ipynb) to create a new spike sorting parameter set (clustering paramset) for an `EphysSession` and follow the instructions.
-        - Open [this notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_clustering_task.ipynb) to select the spike sorting parameter set and the `EphysSession` (i.e., a `ClusteringTask` in the pipeline) and follow the instructions.
-        - Spike sorting will run automatically after your selection.
-        - Download spike sorting results to your local machine by following the [download instructions section](#download-spike-sorting-results-to-your-local-machine).
-7. **Explore LFP & spike sorting results**
+        - Open [CREATE_new_clustering_paramset.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_clustering_paramset.ipynb) and follow the instructions.
+        - Open [CREATE_new_clustering_task.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_clustering_task.ipynb) to assign parameter set to an `EphysSession`.
+        - The spike sorting process will run automatically.
+        - Follow the [download spike sorting results](#8-download-spike-sorting-results-to-your-local-machine) to retrieve results.
+
+7. **Explore LFP & Spike Sorting Results**
     1. Go to [works.datajoint.com](works.datajoint.com) → `Notebook` tab
-    2. Open and follow the instructions in [this notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_array_ephys.ipynb) to explore the ephys results in the pipeline.
-    3. Then, open and follow the instructions in [this notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_quality_metrics.ipynb) to explore the quality metrics for sorted units.
+    2. Open [EXPLORE_array_ephys.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_array_ephys.ipynb) to analyze ephys results.
+    3. Open [EXPLORE_quality_metrics.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_quality_metrics.ipynb) to examine unit quality metrics.
 
 8. **Download Spike Sorting Results to Your Local Machine**
-    1. You need Axon credentials to download the spike sorting results from the cloud to your local machine. If you don't have them yet:
-        1. Request them from your DataJoint support team.
-        2. Once approved, you’ll be provided with Axon credentials (account_id, client_id, client_secret, issuer, bucket, role) to download results from the AWS S3 bucket.
-    2. Set up the following configurations on your local machine (if you haven't already):  
-        1. Install the pipeline code on your computer. Follow the [installation instructions here](https://github.com/dj-sciops/utah_organoids/blob/main/docs/INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase).  
-        2. Set up the axon configuration by following the steps in this guide: [Add cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION_INSTRUCTIONS.md). 
-    3. Once the setup is complete, you can download the spike sorting results by following the steps in [this notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/DOWNLOAD_spike_sorted_data.ipynb).There are several ways to execute the notebook in your local machine, here are two options:
-        1. Using the Jupyter Notebook Server. The notebook can be executed with `jupyter notebook` launched on your local machine.  
+    2. Request Axon credentials from the DataJoint support team.
+    3. Set up your local machine (if you haven't already):
+        1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase).  
+        2. Configure axon settings ([Cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION_INSTRUCTIONS.md)).  
+    4. Download spike sorting results via the [DOWNLOAD_spike_sorted_data.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session_with_cloud_upload.ipynb) using either:
+        1. Jupyter Notebook Server:
             - Open a terminal or command prompt.
             - Activate the `utah_organoids` environment with `conda activate utah_organoids`.
             - Ensure `Jupyter` is installed in the `utah_organoids` environment. If not, install it by running `conda install jupyter`.
             - Navigate to the `utah_organoids/notebooks` directory in the terminal.
             - Run `jupyter notebook` in the terminal which will open the Jupyter notebook web interface.
-            - Click on the notebook there (`DOWNLOAD_spike_sorted_data.ipynb`) and follow the instructions to download the results.
-            - Note: to execute each code cell sequentially, press `Shift + Enter` on your keyboard or click "Run". 
-            - Close the browser tab and stop Jupyter with `Ctrl + C` in the terminal when you are done with the download and notebook.
-        2. Running in VS Code. The notebook can be executed in Visual Studio Code (VS Code) with the Python extension installed.
+            - Click on the notebook there (`DOWNLOAD_spike_sorted_data.ipynb`) and follow the instructions to download results.
+            - Note: to execute each code cell sequentially, press `Shift + Enter` on your keyboard or click "Run".
+            - Close the browser tab and stop Jupyter with `Ctrl + C` in the terminal when you are done with the upload and notebook.
+        2. Visual Studio Code (VS Code):
             - Install VS Code and the Python extension.
-            - Open the `DOWNLOAD_spike_sorted_data.ipynb` notebook in VS Code.
             - Select the kernel for the notebook by clicking on the kernel name `utah_organoids` in the top right corner of the notebook.
+            - Open the `DOWNLOAD_spike_sorted_data.ipynb` notebook in VS Code.
             - Click on the "Run Cell" button in the top right corner of each code cell to execute the code.
-            - Follow the instructions in the notebook to download results.
-
+            - Follow the instructions in the notebook to download spike sorting results.
 
 ## Troubleshooting
 
-For assistance, refer to the [Troubleshooting Guide](TROUBLESHOOTING.md), which provides solutions to common issues encountered during pipeline setup and execution. If you need further help, feel free to contact the DataJoint SciOps team.
+For help, refer to the [Troubleshooting Guide](TROUBLESHOOTING.md), which provides solutions to common issues encountered during pipeline setup and execution. If you need further assistance, contact the DataJoint support team.
