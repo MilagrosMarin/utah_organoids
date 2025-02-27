@@ -6,7 +6,7 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
 
 - **Organoid Generation Pipeline**: Manages metadata for organoid generation protocols, tracking the process from induced pluripotent stem cells (iPSCs) to single neural rosettes (SNRs) to mature organoids.
 
-- **Array Ephys Pipeline**: Manages ephys data, including metadata, raw data processing, preprocessing, spike sorting, and quality metrics computations.
+- **Array Ephys Pipeline**: Manages and analyzes ephys recordings, including spike sorting and quality metrics.
 
 ## Accessing the Pipelines
 
