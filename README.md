@@ -40,8 +40,8 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
   1. Ensure data follows the [file structure guidelines](https://github.com/dj-sciops/utah_organoids/blob/main/docs/DATA_ORGANIZATION.md).
   2. Request Axon credentials from the DataJoint support team.
   3. Set up your local machine (if you haven't already):
-      1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/INSTALLATION_AND_CONFIGURATION.md).  
-      2. Configure axon settings ([Cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION.md)).  
+      1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/installation_and_configuration/INSTALLATION_AND_CONFIGURATION.md).  
+      2. Configure axon settings ([Cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/installation_and_configuration/CLOUD_UPLOAD_CONFIGURATION.md)).  
   4. Upload data via the [cloud upload notebook](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session_with_cloud_upload.ipynb) using either:
       1. Jupyter Notebook Server:
           - Open a terminal or command prompt.
@@ -85,7 +85,7 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
 
   1. Request Axon credentials from the DataJoint support team.
   2. Set up your local machine (if you haven't already):
-      1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase).  
+      1. [Install the pipeline code](https://github.com/dj-sciops/utah_organoids/blob/main/docs/installation_and_configuration/INSTALLATION_AND_CONFIGURATION_INSTRUCTIONS.md#installation-of-the-pipeline-codebase).  
       2. Configure axon settings ([Cloud upload configuration](https://github.com/dj-sciops/utah_organoids/blob/main/docs/CLOUD_UPLOAD_CONFIGURATION_INSTRUCTIONS.md)).  
   3. Download spike sorting results via the [DOWNLOAD_spike_sorted_data.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session_with_cloud_upload.ipynb) using either:
       1. Jupyter Notebook Server:
