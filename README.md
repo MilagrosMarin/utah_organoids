@@ -18,7 +18,7 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
 
 ## Exploring the Pipelines
 
-  1. Log into [works.datajoint.com](works.datajoint.com)  and navigate to the `Notebook` tab.
+  1. Log into [works.datajoint.com](https://works.datajoint.com)  and navigate to the `Notebook` tab.
   2. Run [EXPLORE_pipeline_architecture.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_pipeline_architecture.ipynb) to visualize the data pipeline structure, including key schemas, tables, and their relationships.
 
 ## Organoid Generation Pipeline
@@ -66,13 +66,13 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
 
 ### **Analyzing Multi-Unit Activity (MUA) in Raw Traces**  
 
-1. Navigate to [works.datajoint.com](works.datajoint.com) and open the `Dashboard` tab.  
+1. Navigate to [works.datajoint.com](https://works.datajoint.com) and open the `Dashboard` tab.  
 2. Click on `Plots` > `MUA Trace Plots`, then select a data entry to explore the MUA results. The interactive plot allows you to zoom in and out of the raw traces and examine detected peaks.  
-3. (Optional) For a more detailed analysis, go to the `Notebook` tab on [works.datajoint.com](works.datajoint.com) and run the [EXPLORE_MUA_analysis.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_MUA_analysis.ipynb) notebook to inspect the `MUA` schema in depth.
+3. (Optional) For a more detailed analysis, go to the `Notebook` tab on [works.datajoint.com](https://works.datajoint.com) and run the [EXPLORE_MUA_analysis.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_MUA_analysis.ipynb) notebook to inspect the `MUA` schema in depth.
 
 ### **Define an `EphysSession`** (i.e. a time-window for ephys analysis)
 
-  1. Log into [works.datajoint.com](works.datajoint.com)  and navigate to the `Notebook` tab.
+  1. Log into [works.datajoint.com](https://works.datajoint.com)  and navigate to the `Notebook` tab.
   2. Open and execute [CREATE_new_session.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/CREATE_new_session.ipynb).
   3. Define a time window for analysis:
       - **For Spike Sorting Analysis**: Set `session_type` to `spike_sorting`, and create an `EphysSessionProbe` to store probe information, including the channel mapping. This triggers probe insertion detection automatically. For spike sorting, you will need to manually select the spike sorting algorithm and parameter set to run in the next step.
@@ -88,7 +88,7 @@ The **Utah Organoids DataJoint pipelines** facilitate **cerebral organoid charac
 
 ### **Explore Spike Sorting Results**
 
-  1. Go to [works.datajoint.com](works.datajoint.com) → `Notebook` tab
+  1. Go to [works.datajoint.com](https://works.datajoint.com) → `Notebook` tab
   2. Open [EXPLORE_array_ephys.ipynb](https://github.com/dj-sciops/utah_organoids/blob/main/notebooks/EXPLORE_array_ephys.ipynb) to inspect processed ephys data.
 
 ### **Download Spike Sorting Results to Your Local Machine**
