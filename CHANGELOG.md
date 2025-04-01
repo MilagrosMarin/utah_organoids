@@ -1,5 +1,11 @@
 # Changelog
 
+## `V0.16.0`
+
+### Features
+
+- feat: Add `report` schema to store `SpikeInterfaceReport` plots & update worker orchestration([d2f2bc3](https://github.com/dj-sciops/utah_organoids/pull/131/commits/d2f2bc3b1fc0faef7d110e75f6b088876d91e55b))
+
 ## `V0.15.1`
 
 ### Features
