@@ -1,6 +1,7 @@
 import datajoint as dj
 import numpy as np
 from scipy import signal
+from datetime import timedelta, datetime, timezone
 
 from workflow import DB_PREFIX
 
@@ -110,3 +111,91 @@ class LFPSpectrogram(dj.Computed):
                     std_power=power.std(),
                 )
             )
+
+
+@schema
+class SpectrogramPlot(dj.Computed):
+    """
+    Generate spectrogram plots for each channel per electrode.
+    """
+
+    definition = """
+    -> LFPSpectrogram
+    ---
+    freq_min: float  # min frequency
+    freq_max: float  # max frequency
+    execution_duration: float  # execution duration in hours
+    """
+
+    class Channel(dj.Part):
+        definition = """
+        -> master
+        -> LFPSpectrogram.ChannelSpectrogram
+        ---
+        spectrogram_plot: longblob
+        """
+
+    def make(self, key):
+        execution_time = datetime.now(timezone.utc)
+
+        # Find which frequencies are within 1–300 Hz
+        FREQ_MIN = 1
+        FREQ_MAX = 300
+
+        from plotly import graph_objects as go
+        import plotly.express as px
+
+        # Fetch multiple spectrograms
+        electrodes = [e for e in (LFPSpectrogram.ChannelSpectrogram).fetch("electrode")]
+        spectrogram_fig = go.Figure()
+
+        for e in electrodes:
+            Sxx, t, f = (LFPSpectrogram.ChannelSpectrogram & {"electrode": e}).fetch1(
+                "spectrogram", "time", "frequency"
+            )
+            freq_mask = (f >= FREQ_MIN) & (f <= FREQ_MAX)
+            spectrogram_fig.add_trace(
+                go.Heatmap(
+                    z=np.log(Sxx[freq_mask, :]),
+                    x=t,
+                    y=f[freq_mask],
+                    visible=(e == electrodes[0]),
+                    colorbar=dict(title="log Power"),
+                )
+            )
+
+        # Add buttons for electrode switching
+        buttons = [
+            dict(
+                label=f"Electrode {e}",
+                method="update",
+                args=[{"visible": [e == i for i in electrodes]}],
+            )
+            for e in electrodes
+        ]
+
+        spectrogram_fig.update_layout(
+            updatemenus=[dict(buttons=buttons, direction="down", x=1.05, y=1)],
+            title="Spectrogram (log Power) per Electrode",
+            xaxis_title="Time (s)",
+            yaxis_title="Frequency (Hz)",
+        )
+
+        self.insert1(
+            {
+                **key,
+                "freq_min": FREQ_MIN,
+                "freq_max": FREQ_MAX,
+                "execution_duration": (
+                    datetime.now(timezone.utc) - execution_time
+                ).total_seconds()
+                / 3600,
+            }
+        )
+
+        self.Channel.insert1(
+            {
+                **key,
+                "spectrogram_plot": spectrogram_fig.to_json(),
+            }
+        )
