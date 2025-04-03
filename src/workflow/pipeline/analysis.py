@@ -132,60 +132,75 @@ class SpectrogramPlot(dj.Computed):
         -> master
         -> LFPSpectrogram.ChannelSpectrogram
         ---
-        spectrogram_plot: longblob
+        spectrogram_plot: attach
         """
 
     def make(self, key):
         execution_time = datetime.now(timezone.utc)
 
-        # Find which frequencies are within 1–300 Hz
-        FREQ_MIN = 1
-        FREQ_MAX = 300
-
-        from plotly import graph_objects as go
-        import plotly.express as px
-
-        # Fetch multiple spectrograms
-        electrodes = [e for e in (LFPSpectrogram.ChannelSpectrogram).fetch("electrode")]
-        spectrogram_fig = go.Figure()
-
-        for e in electrodes:
-            Sxx, t, f = (LFPSpectrogram.ChannelSpectrogram & {"electrode": e}).fetch1(
-                "spectrogram", "time", "frequency"
-            )
-            freq_mask = (f >= FREQ_MIN) & (f <= FREQ_MAX)
-            spectrogram_fig.add_trace(
-                go.Heatmap(
-                    z=np.log(Sxx[freq_mask, :]),
-                    x=t,
-                    y=f[freq_mask],
-                    visible=(e == electrodes[0]),
-                    colorbar=dict(title="log Power"),
-                )
-            )
-
-        # Add buttons for electrode switching
-        buttons = [
-            dict(
-                label=f"Electrode {e}",
-                method="update",
-                args=[{"visible": [e == i for i in electrodes]}],
-            )
-            for e in electrodes
-        ]
-
-        spectrogram_fig.update_layout(
-            updatemenus=[dict(buttons=buttons, direction="down", x=1.05, y=1)],
-            title="Spectrogram (log Power) per Electrode",
-            xaxis_title="Time (s)",
-            yaxis_title="Frequency (Hz)",
-        )
+        # Find which frequencies are within 0.1–500 Hz
+        FREQ_MIN, FREQ_MAX = 0.1, 500
 
         self.insert1(
+            {**key, "freq_min": FREQ_MIN, "freq_max": FREQ_MAX, "execution_duration": 0}
+        )
+
+        tmp_dir = tempfile.TemporaryDirectory()
+
+        spectrograms = (LFPSpectrogram.ChannelSpectrogram & key).fetch(as_dict=True)
+        bands = SpectralBand.fetch()
+
+        for ch_data in spectrograms:
+            Sxx, t, f = ch_data["spectrogram"], ch_data["time"], ch_data["frequency"]
+            freq_mask = (f >= FREQ_MIN) & (f <= FREQ_MAX)
+
+            # Create spectrogram plot
+            fig_spectrogram, ax = plt.subplots(figsize=(12, 8))
+            im = ax.pcolormesh(
+                t, f[freq_mask], np.log(Sxx[freq_mask, :]), shading="auto"
+            )
+            fig_spectrogram.colorbar(im, ax=ax, label="log Power")
+            ax.set_xlabel("Time (s)")
+            ax.set_ylabel("Frequency (Hz)")
+            ax.set_title(
+                f"Spectrogram \n Organoid {key['organoid_id']} | {key['start_time']} - {key['end_time']} \n Ch {ch_data['electrode']}"
+            )
+
+            # Add frequency band lines
+            for band in bands:
+                ax.axhspan(
+                    band["lower_freq"],
+                    band["upper_freq"],
+                    alpha=0.15,
+                    color="royalblue",
+                )
+                ax.text(
+                    -0.05,
+                    (band["lower_freq"] + band["upper_freq"]) / 2,
+                    band["band_name"],
+                    va="center",
+                    ha="right",
+                    transform=ax.get_yaxis_transform(),
+                    color="navy",
+                    fontsize=9,
+                )
+
+            filename_spectrogram = f"organoid_{key['organoid_id']}_electrode_{ch_data['electrode']}_spectrogram.png"
+            filepath_spectrogram = Path(tmp_dir.name) / filename_spectrogram
+            fig_spectrogram.savefig(filepath_spectrogram)
+            plt.close(fig_spectrogram)
+
+            self.Channel.insert1(
+                {
+                    **key,
+                    "electrode": ch_data["electrode"],
+                    "spectrogram_plot": filepath_spectrogram,
+                }
+            )
+
+        self.update1(
             {
                 **key,
-                "freq_min": FREQ_MIN,
-                "freq_max": FREQ_MAX,
                 "execution_duration": (
                     datetime.now(timezone.utc) - execution_time
                 ).total_seconds()
@@ -193,9 +208,4 @@ class SpectrogramPlot(dj.Computed):
             }
         )
 
-        self.Channel.insert1(
-            {
-                **key,
-                "spectrogram_plot": spectrogram_fig.to_json(),
-            }
-        )
+        tmp_dir.cleanup()
