@@ -9,6 +9,8 @@ from .ephys import ephys
 
 schema = dj.schema(DB_PREFIX + "analysis")
 
+logger = dj.logger
+
 
 @schema
 class SpectralBand(dj.Lookup):
@@ -38,8 +40,12 @@ class SpectrogramParameters(dj.Lookup):
     overlap_size=0:  float    # Time in seconds
     description="":  varchar(64)
     """
-    contents = [(0, 0.5, 0.0, "Default 0.5s time segments without overlap.")]
-
+    contents = [
+        (0, 0.5, 0.0, "Default 0.5s time segments without overlap."),
+        (1, 0.5, 0.25, "Default 0.5s window, 50% overlap (slow rhythms)"),
+        (2, 0.2, 0.1, "0.2s window, 50% overlap (fast rhythms)")
+    ]
+        
 
 @schema
 class LFPSpectrogram(dj.Computed):
@@ -79,41 +85,39 @@ class LFPSpectrogram(dj.Computed):
     def make(self, key):
         self.insert1(key)
 
-        window_size, overlap_size = (SpectrogramParameters & key).fetch1(
-            "window_size", "overlap_size"
-        )
-
-        lfp_sampling_rate = (ephys.LFP & key).fetch1("lfp_sampling_rate")
-
-        # Get LFP data and calculate spectrogram
         lfp = (ephys.LFP.Trace & key).fetch1("lfp")
+        fs = (ephys.LFP & key).fetch1("lfp_sampling_rate")
+        win_params = (SpectrogramParameters & key).fetch1("window_size", "overlap_size")
 
-        frequency, time, Sxx = signal.spectrogram(
+        nperseg = int(win_params[0] * fs)
+        noverlap = int(win_params[1] * fs)
+
+        freq, t, Sxx = signal.spectrogram(
             lfp,
-            fs=int(lfp_sampling_rate),
-            nperseg=int(window_size * lfp_sampling_rate),
-            noverlap=int(overlap_size * lfp_sampling_rate),
-            window="boxcar",
+            fs=fs,
+            window="tukey",
+            nperseg=nperseg,
+            noverlap=noverlap,
+            scaling="density",
+            mode="psd",
         )
 
         # Store spectrogram results
         self.ChannelSpectrogram.insert1(
-            {**key, "spectrogram": Sxx, "frequency": frequency, "time": time}
+            {**key, "spectrogram": Sxx, "frequency": freq, "time": t}
         )
 
         # Calculate power in each frequency band
-        band_keys, lower_frequencies, upper_frequencies = SpectralBand.fetch(
-            "KEY", "lower_freq", "upper_freq"
-        )
-        for power_key, fl, fh in zip(band_keys, lower_frequencies, upper_frequencies):
-            freq_mask = np.logical_and(frequency >= fl, frequency < fh)
-            power = Sxx[freq_mask, :].mean(axis=0)  # Mean across frequencies
-            self.ChannelPower.insert1(
-                dict(
-                    **power_key,
-                    **key,
-                    power=power,
-                    mean_power=power.mean(),
-                    std_power=power.std(),
-                )
-            )
+        band_keys, f_lo, f_hi = SpectralBand.fetch("KEY", "lower_freq", "upper_freq")
+
+        for band_key, fl, fh in zip(band_keys, f_lo, f_hi):
+            band_mask = np.logical_and(freq >= fl, freq < fh)
+            power = Sxx[band_mask].mean(axis=0) if band_mask.any() else np.zeros_like(t)
+            self.ChannelPower.insert1({
+                **key,
+                **band_key,
+                "power": power,
+                "mean_power": float(power.mean()),
+                "std_power": float(power.std()),
+            })
+
