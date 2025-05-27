@@ -32,6 +32,46 @@ class SpectralBand(dj.Lookup):
 
 
 @schema
+class LFPTraceQC(dj.Computed):
+    """
+    Time-domain QC metrics for each LFP trace (per electrode).
+    Includes variance, noise level, and waveform shape (skewness/kurtosis).
+    """
+
+    definition = """
+    -> ephys.LFP.Trace
+    ---
+    lfp_std: float # Overall signal amplitude (spread, uV)
+    noise_level: float # Median absolute deviation (noise level estimate, uV)
+    lfp_skewness: float # Skewness of the voltage distribution (Asymmetry)
+    lfp_kurtosis: float # Kurtosis of the voltage distribution (Tail heaviness)
+    """
+
+    def make(self, key):
+        import scipy.stats as stats
+
+        lfp = (ephys.LFP.Trace & key).fetch1("lfp")
+
+        # Standard deviation (variance)
+        lfp_std = float(np.std(lfp))
+
+        # Median absolute deviation
+        noise_level = float(stats.median_abs_deviation(lfp, scale="normal"))
+
+        # Waveform shape
+        lfp_skewness = float(stats.skew(lfp))
+        lfp_kurtosis = float(stats.kurtosis(lfp))
+
+        self.insert1({
+            **key,
+            "lfp_std": lfp_std,
+            "noise_level": noise_level,
+            "lfp_skewness": lfp_skewness,
+            "lfp_kurtosis": lfp_kurtosis
+        })
+
+
+@schema
 class SpectrogramParameters(dj.Lookup):
     definition = """
     param_idx: int
