@@ -190,10 +190,6 @@ class LFPSpectrogram(dj.Computed):
         ratio_trace = delta_power / (alpha_power + 1e-12)
 
         # Compute session-level summary metrics
-        delta_band_mean_power = float(delta_power.mean())
-        alpha_band_mean_power = float(alpha_power.mean())
-        delta_alpha_ratio_mean = float(ratio_trace.mean())
-
         # 90% amplitude envelope range (μV RMS)
         amp_envelope = np.sqrt(np.mean(Sxx, axis=0))  # broadband RMS amplitude envelope
         power_range_90pct = float(
@@ -204,9 +200,9 @@ class LFPSpectrogram(dj.Computed):
         self.update1(
             {
                 **key,
-                "delta_band_mean_power": delta_band_mean_power,
-                "alpha_band_mean_power": alpha_band_mean_power,
-                "delta_alpha_ratio_mean": delta_alpha_ratio_mean,
+                "delta_band_mean_power": delta_power.mean(),
+                "alpha_band_mean_power": alpha_power.mean(),
+                "delta_alpha_ratio_mean": ratio_trace.mean(),
                 "power_range_90pct": power_range_90pct,
             }
         )
