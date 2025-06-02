@@ -60,7 +60,7 @@ class LFPQC(dj.Computed):
         lfp_std = float(np.std(lfp))
 
         # Median absolute deviation
-        lfp_noise_level = float(stats.median_abs_deviation(lfp, scale="normal"))
+        lfp_noise_level = float(stats.median_abs_deviation(lfp))
 
         # Waveform shape
         lfp_skewness = float(stats.skew(lfp))
