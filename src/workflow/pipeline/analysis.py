@@ -63,16 +63,13 @@ class LFPQC(dj.Computed):
         lfp_noise_level = float(stats.median_abs_deviation(lfp))
 
         # Waveform shape
-        lfp_skewness = float(stats.skew(lfp))
-        lfp_kurtosis = float(stats.kurtosis(lfp))
-
         self.insert1(
             {
                 **key,
                 "lfp_std": lfp_std,
-                "noise_level": lfp_noise_level,
-                "lfp_skewness": lfp_skewness,
-                "lfp_kurtosis": lfp_kurtosis,
+                "lfp_noise_level": lfp_noise_level,
+                "lfp_skewness": stats.skew(lfp)
+                "lfp_kurtosis": stats.kurtosis(lfp)
             }
         )
 
