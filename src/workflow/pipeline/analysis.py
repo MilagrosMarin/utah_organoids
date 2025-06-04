@@ -99,7 +99,7 @@ class LFPSpectrogram(dj.Computed):
     -> SpectrogramParameters
     ---
     delta_band_mean_power: float  # Average delta power (1-4 Hz) over entire recording (μV²/Hz)
-    power_range_90pct: float      # 90%% range (95th-5th percentile) of broadband RMS amplitude envelope (μV RMS)
+    power_range_90pct: float      # 90% spread of broadband amplitude envelope derived from spectrogram (a.u.)
     """
 
     class ChannelSpectrogram(dj.Part):
@@ -140,7 +140,7 @@ class LFPSpectrogram(dj.Computed):
         nperseg = int(window_size * fs)
         noverlap = int(overlap_size * fs)
 
-        # Compute spectrogram
+        # Compute spectrogram as Power Spectral Density (PSD) (μV²/Hz)
         freq, t, Sxx = signal.spectrogram(
             lfp,
             fs=fs,
@@ -192,7 +192,6 @@ class LFPSpectrogram(dj.Computed):
         delta_power = band_powers.get("delta", np.zeros_like(t))
 
         # Compute session-level summary metrics
-        # 90% amplitude envelope range (μV RMS)
         amp_envelope = np.sqrt(np.mean(Sxx, axis=0))  # broadband RMS amplitude envelope
         power_range_90pct = float(
             np.percentile(amp_envelope, 95) - np.percentile(amp_envelope, 5)
