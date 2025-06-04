@@ -192,7 +192,6 @@ class LFPSpectrogram(dj.Computed):
         delta_power = band_powers.get("delta", np.zeros_like(t))
 
         # Compute session-level summary metrics
-        # 90% amplitude envelope range (μV RMS)
         amp_envelope = np.sqrt(np.mean(Sxx, axis=0))  # broadband RMS amplitude envelope
         power_range_90pct = float(
             np.percentile(amp_envelope, 95) - np.percentile(amp_envelope, 5)
