@@ -29,7 +29,17 @@ class MUAEphysSession(dj.Computed):
     unique index (organoid_id, start_time, end_time)
     """
 
-    key_source = culture.Experiment & ephys.EphysSessionProbe
+    @property
+    def key_source(self):
+        # Filter to only those with a single `port_id`
+        keys = (culture.Experiment & ephys.EphysSessionProbe).fetch("KEY")
+        filtered_keys = []
+        for key in keys:
+            port_ids = (ephys.EphysSessionProbe & key).fetch("port_id")
+            if len(set(port_ids)) == 1:
+                filtered_keys.append(key)
+
+        return culture.Experiment & filtered_keys
 
     session_duration = timedelta(minutes=1)
 
@@ -39,12 +49,7 @@ class MUAEphysSession(dj.Computed):
         )
 
         # Figure out `Port ID` from the existing EphysSessionProbe
-        port_id = set((ephys.EphysSessionProbe & key).fetch("port_id"))
-        if len(port_id) > 1:
-            raise ValueError(
-                f"Multiple Port IDs found for the {key} - cannot determine the port ID"
-            )
-        port_id = port_id.pop()
+        port_id = (ephys.EphysSessionProbe & key).fetch("port_id")[0]
 
         parent_folder = (culture.ExperimentDirectory & key).fetch1(
             "experiment_directory"
