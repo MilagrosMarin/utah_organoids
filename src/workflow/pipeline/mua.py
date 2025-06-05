@@ -28,7 +28,6 @@ class MUAEphysSession(dj.Computed):
     port_id: char(2)  # e.g. A, B, C, ...
     unique index (organoid_id, start_time, end_time)
     """
-
     key_source = culture.Experiment & ephys.EphysSessionProbe
 
     session_duration = timedelta(minutes=1)
@@ -38,19 +37,21 @@ class MUAEphysSession(dj.Computed):
             "experiment_start_time", "experiment_end_time"
         )
 
+        # Figure out `Port ID` from the existing EphysSessionProbe
+        port_id = set((ephys.EphysSessionProbe & key).fetch("port_id"))
+
         # Figure out `Port ID` from the existing EphysSession
         if not (ephys.EphysSessionProbe & key):
             raise ValueError(
                 f"No EphysSessionProbe found for the {key} - cannot determine the port ID"
             )
 
-        port_id = set((ephys.EphysSessionProbe & key).fetch("port_id"))
+        # Check if there are multiple port IDs for the same experiment, if so, it needs to be fixed in the EphysSessionProbe table
         if len(port_id) > 1:
             raise ValueError(
                 f"Multiple Port IDs found for the {key} - cannot determine the port ID"
             )
         port_id = port_id.pop()
-
         parent_folder = (culture.ExperimentDirectory & key).fetch1(
             "experiment_directory"
         )
