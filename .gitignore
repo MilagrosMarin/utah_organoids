@@ -51,7 +51,7 @@ coverage.xml
 test_*
 test-*
 testing
-scripts/LFP analysis # Jan's pipeline
+scripts/LFP analysis
 .env
 
 # Translations
