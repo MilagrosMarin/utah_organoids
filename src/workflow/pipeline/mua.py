@@ -1,20 +1,19 @@
-import datajoint as dj
-from datetime import timedelta, datetime, timezone
-import numpy as np
-import scipy.stats
-from scipy.signal import find_peaks
 import json
 import tempfile
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import datajoint as dj
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats
 import spikeinterface as si
-from spikeinterface import extractors, preprocessing
-
 from element_interface.utils import find_full_path
+from scipy.signal import find_peaks
+from spikeinterface import extractors, preprocessing
 
 from workflow import DB_PREFIX
 from workflow.pipeline import culture, ephys
-
 
 schema = dj.schema(DB_PREFIX + "mua")
 
@@ -25,15 +24,11 @@ class MUAEphysSession(dj.Computed):
     -> culture.Experiment
     start_time                  : datetime
     ---
-    end_time                    : datetime  
-    port_id: char(2)  # e.g. A, B, C, ... 
+    end_time                    : datetime
+    port_id: char(2)  # e.g. A, B, C, ...
     unique index (organoid_id, start_time, end_time)
     """
-
-    key_source = (
-        culture.Experiment
-        & "organoid_id in ('MB05', 'MB06', 'MB07', 'MB08', 'E9', 'E10', 'E11', 'E12', 'O25', 'O26', 'O27', 'O28')"
-    )
+    key_source = culture.Experiment & ephys.EphysSessionProbe
 
     session_duration = timedelta(minutes=1)
 
@@ -42,19 +37,21 @@ class MUAEphysSession(dj.Computed):
             "experiment_start_time", "experiment_end_time"
         )
 
+        # Figure out `Port ID` from the existing EphysSessionProbe
+        port_id = set((ephys.EphysSessionProbe & key).fetch("port_id"))
+
         # Figure out `Port ID` from the existing EphysSession
         if not (ephys.EphysSessionProbe & key):
             raise ValueError(
                 f"No EphysSessionProbe found for the {key} - cannot determine the port ID"
             )
 
-        port_id = set((ephys.EphysSessionProbe & key).fetch("port_id"))
+        # Check if there are multiple port IDs for the same experiment, if so, it needs to be fixed in the EphysSessionProbe table
         if len(port_id) > 1:
             raise ValueError(
                 f"Multiple Port IDs found for the {key} - cannot determine the port ID"
             )
         port_id = port_id.pop()
-
         parent_folder = (culture.ExperimentDirectory & key).fetch1(
             "experiment_directory"
         )
@@ -106,8 +103,6 @@ class MUASpikes(dj.Computed):
         spike_amp: longblob    # spike amplitudes in uV
         """
 
-    key_source = MUAEphysSession & "start_time >= '2024-09-07'"
-
     threshold_uV = 50  # 50 uV
     peak_sign = "both"
 
@@ -136,13 +131,12 @@ class MUASpikes(dj.Computed):
         refractory_period = 0.002  # 2 ms
         refractory_samples = int(refractory_period * fs)
 
-        threshold_uV = self.threshold_uV
         peak_sign = self.peak_sign
 
         self.insert1(
             {
                 **key,
-                "threshold_uv": threshold_uV,
+                "threshold_uv": self.threshold_uV,
                 "peak_sign": peak_sign,
                 "fs": fs,
                 "execution_duration": 0,
@@ -157,7 +151,7 @@ class MUASpikes(dj.Computed):
             # median absolute deviation
             noise_level = scipy.stats.median_abs_deviation(trace, scale="normal")
             # spike detection
-            threshold_uV = max(threshold_uV, 5 * noise_level)
+            threshold_uV = max(self.threshold_uV, 5 * noise_level)
             if peak_sign == "neg":
                 spk_ind, spk_amp = find_peaks(
                     -trace, height=threshold_uV, distance=refractory_samples
@@ -176,6 +170,7 @@ class MUASpikes(dj.Computed):
             self.Channel.insert1(
                 dict(
                     **key,
+                    threshold_uv=self.threshold_uV,
                     channel_idx=ch_idx,
                     channel_id=ch_id,
                     spike_count=len(spk_ind),
@@ -189,6 +184,7 @@ class MUASpikes(dj.Computed):
         self.update1(
             {
                 **key,
+                "threshold_uv": self.threshold_uV,
                 "execution_duration": (
                     datetime.now(timezone.utc) - execution_time
                 ).total_seconds()
@@ -218,8 +214,10 @@ class MUATracePlot(dj.Computed):
 
     spike_rate_threshold = 0.5
 
-    key_source = MUASpikes & {"threshold_uv": 50} & (
-        MUASpikes.Channel & f"spike_rate >= {spike_rate_threshold}"
+    key_source = (
+        MUASpikes
+        & {"threshold_uv": 50}
+        & (MUASpikes.Channel & f"spike_rate >= {spike_rate_threshold}")
     )
 
     def make(self, key):
@@ -308,6 +306,8 @@ class MUATracePlot(dj.Computed):
         )
 
         tmp_dir.cleanup()
+        plt.close("all")
+        plt.clf()
 
 
 def _get_si_recording(start_time, end_time, parent_folder, port_id):
@@ -410,8 +410,6 @@ def _plot_trace_with_peaks(
 
 
 def _plot_mean_waveform(mean_wf, fs, title="Mean Waveform"):
-    import matplotlib.pyplot as plt
-
     times = np.arange(-len(mean_wf) / 2, len(mean_wf) / 2) / fs
     times *= 1e3  # times in ms
     fig, ax = plt.subplots()

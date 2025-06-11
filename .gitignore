@@ -47,6 +47,13 @@ coverage.xml
 .hypothesis/
 /tests/user_data
 
+# datajoint test/other files
+test_*
+test-*
+testing
+scripts/LFP analysis
+.env
+
 # Translations
 *.mo
 *.pot
