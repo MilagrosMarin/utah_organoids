@@ -272,7 +272,12 @@ class MUATracePlot(dj.Computed):
             for idx in spk_ind:
                 if idx - pad_len >= 0 and idx + pad_len < len(trace):
                     wfs.append(trace[idx - pad_len : idx + pad_len])
-            mean_wf = np.mean(np.vstack(wfs), axis=0)
+
+            # If no spikes, insert an empty mean waveform
+            if len(wfs) > 0:
+                mean_wf = np.mean(np.vstack(wfs), axis=0)
+            else:
+                mean_wf = []
 
             wf_fig = _plot_mean_waveform(mean_wf, fs, title_)
 
