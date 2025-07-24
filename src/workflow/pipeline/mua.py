@@ -360,18 +360,21 @@ def _build_si_recording_object(files, acq_software="intan"):
     Returns:
         si_recording: SI recording object
     """
-    si_recording = None
-    acq_key = acq_software.replace(" ", "").lower()
-    read_func_name = f"read_{acq_key}"
 
+    from spikeinterface.extractors.extractor_classes import (
+        recording_extractor_full_dict,
+    )
+
+    # Create SI recording extractor object
+    acq_key = acq_software.replace(" ", "").lower()
     try:
-        read_func = getattr(se, read_func_name)
-    except AttributeError:
+        si_extractor = recording_extractor_full_dict[acq_key]
+    except KeyError:
         raise ValueError(f"Unsupported acquisition software: {acq_software}")
 
     # Detect stream name from the first file
     first_file_path = find_full_path(ephys.get_ephys_root_data_dir(), files[0])
-    available_streams = read_func.get_streams(first_file_path)[0]
+    available_streams = si_extractor.get_streams(first_file_path)[0]
 
     # Pick amplifier stream
     try:
@@ -382,16 +385,17 @@ def _build_si_recording_object(files, acq_software="intan"):
         )
 
     # Read and concatenate recordings
+    si_recording = None
     for file_path in (
         find_full_path(ephys.get_ephys_root_data_dir(), f) for f in files
     ):
         if not si_recording:
-            si_recording = read_func(file_path, stream_name=stream_name)
+            si_recording = si_extractor(file_path, stream_name=stream_name)
         else:
             si_recording = si.concatenate_recordings(
                 [
                     si_recording,
-                    read_func(file_path, stream_name=stream_name),
+                    si_extractor(file_path, stream_name=stream_name),
                 ]
             )
 
