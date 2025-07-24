@@ -10,7 +10,8 @@ import scipy.stats
 import spikeinterface as si
 from element_interface.utils import find_full_path
 from scipy.signal import find_peaks
-from spikeinterface import extractors, preprocessing
+from spikeinterface import preprocessing
+import spikeinterface.extractors as se
 
 from workflow import DB_PREFIX
 from workflow.pipeline import culture, ephys
@@ -148,7 +149,7 @@ class MUASpikes(dj.Computed):
         for ch_idx, ch_id in enumerate(si_recording.channel_ids):
             # channel trace in uV
             trace = np.squeeze(
-                si_recording.get_traces(channel_ids=[ch_id], return_scaled=True)
+                si_recording.get_traces(channel_ids=[ch_id], return_in_uV=True)
             )
             # median absolute deviation
             noise_level = scipy.stats.median_abs_deviation(trace, scale="normal")
@@ -360,31 +361,40 @@ def _build_si_recording_object(files, acq_software="intan"):
         si_recording: SI recording object
     """
     si_recording = None
+    acq_key = acq_software.replace(" ", "").lower()
+    read_func_name = f"read_{acq_key}"
 
-    si_extractor: si.extractors.neoextractors = (
-        si.extractors.extractorlist.recording_extractor_full_dict[
-            acq_software.replace(" ", "").lower()
-        ]
-    )  # data extractor object
+    try:
+        read_func = getattr(se, read_func_name)
+    except AttributeError:
+        raise ValueError(f"Unsupported acquisition software: {acq_software}")
 
-    # Read data. Concatenate if multiple files are found.
+    # Detect stream name from the first file
+    first_file_path = find_full_path(ephys.get_ephys_root_data_dir(), files[0])
+    available_streams = read_func.get_streams(first_file_path)[0]
+
+    # Pick amplifier stream
+    try:
+        stream_name = [s for s in available_streams if "amplifier" in s.lower()][0]
+    except IndexError:
+        raise ValueError(
+            f"No 'amplifier' stream found in {first_file_path}. Available: {available_streams}"
+        )
+
+    # Read and concatenate recordings
     for file_path in (
         find_full_path(ephys.get_ephys_root_data_dir(), f) for f in files
     ):
         if not si_recording:
-            stream_name = [
-                s for s in si_extractor.get_streams(file_path)[0] if "amplifier" in s
-            ][0]
-            si_recording: si.BaseRecording = si_extractor(
-                file_path, stream_name=stream_name
-            )
+            si_recording = read_func(file_path, stream_name=stream_name)
         else:
-            si_recording: si.BaseRecording = si.concatenate_recordings(
+            si_recording = si.concatenate_recordings(
                 [
                     si_recording,
-                    si_extractor(file_path, stream_name=stream_name),
+                    read_func(file_path, stream_name=stream_name),
                 ]
             )
+
     return si_recording
 
 
