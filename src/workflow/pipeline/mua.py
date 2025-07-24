@@ -366,9 +366,10 @@ def _build_si_recording_object(files, acq_software="intan"):
     )
 
     # Create SI recording extractor object
-    acq_key = acq_software.replace(" ", "").lower()
     try:
-        si_extractor = recording_extractor_full_dict[acq_key]
+        si_extractor = recording_extractor_full_dict[
+            acq_software.replace(" ", "").lower()
+        ]
     except KeyError:
         raise ValueError(f"Unsupported acquisition software: {acq_software}")
 
@@ -376,20 +377,13 @@ def _build_si_recording_object(files, acq_software="intan"):
     first_file_path = find_full_path(ephys.get_ephys_root_data_dir(), files[0])
     available_streams = si_extractor.get_streams(first_file_path)[0]
 
-    # Pick amplifier stream
-    try:
-        stream_name = [s for s in available_streams if "amplifier" in s.lower()][0]
-    except IndexError:
-        raise ValueError(
-            f"No 'amplifier' stream found in {first_file_path}. Available: {available_streams}"
-        )
-
-    # Read and concatenate recordings
+    # Read data. Concatenate if multiple files are found.
     si_recording = None
     for file_path in (
         find_full_path(ephys.get_ephys_root_data_dir(), f) for f in files
     ):
         if not si_recording:
+            stream_name = [s for s in available_streams if "amplifier" in s.lower()][0]
             si_recording = si_extractor(file_path, stream_name=stream_name)
         else:
             si_recording = si.concatenate_recordings(
