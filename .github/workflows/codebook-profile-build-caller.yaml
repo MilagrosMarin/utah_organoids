@@ -17,11 +17,7 @@ on:
         default: 'standard'
         options:
           - standard
-          - spike_processing
           - spike_sorting
-          - calcium_imaging
-          - dlc
-
 jobs:
   get_meta:
     runs-on: ubuntu-latest
@@ -57,3 +53,5 @@ jobs:
       DOCKER_REGISTRY_REPO: ${{secrets.DOCKER_REGISTRY_REPO}} 
       DOCKER_REGISTRY_USERNAME: ${{secrets.DOCKER_REGISTRY_USERNAME}}
       DOCKER_REGISTRY_PASSWORD: ${{secrets.DOCKER_REGISTRY_PASSWORD}}
+
+      
